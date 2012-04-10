@@ -1,0 +1,5 @@
+Drupal installation made easy. Process:
+1. Downloads or detects drupal, unpacks it
+2. Downloads libraries
+3. Downloads modules
+4. Setup installation profiles
