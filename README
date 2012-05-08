@@ -1,5 +1,26 @@
 Drupal installation made easy. Process:
 1. Downloads or detects drupal, unpacks it
 2. Downloads libraries
-3. Downloads modules
-4. Setup installation profiles
+3. Downloads modules (Needs improvement)
+4. Setup installation profiles (Manual)
+
+===============================================
+
+08-May-2012, ver. 0.0.3
+A. Reference to Drupal version is generic now apart from default function parameter values
+B. Updates:
+- Core update 7.12 to 7.14
+- Libraries updated: CKEditor 3.6.2 to 3.6.3
+- Module updates: CSS3PIE, AdminMenu, Migrate & Backup, CKEditor, entity (1.0-rc1 to 1.0-rc2)
+- Modules added: FontYourFace, Views Slideshow, Omega Theme Modules (Context, Delta, Omega Tools), Devel, Features, Entity, Override node options
+C. Update to static instalation profile
+
+TODO: 
+- Take Care of cookies issue
+- Getting Drupal files from GitHub
+- Generate profile
+
+===============================================
+
+09-May-2012, ver. 0.0.1
+ - Initial release: downloads Drupal 7.12, downloads CKEditor, creates libraries folder

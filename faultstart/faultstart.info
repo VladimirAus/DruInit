@@ -1,0 +1,46 @@
+name = iFactory installation profile
+description = Run to configure other profiles
+core = 7.x
+dependencies[] = block
+dependencies[] = contextual
+dependencies[] = image
+dependencies[] = list
+dependencies[] = menu
+dependencies[] = number
+dependencies[] = options
+dependencies[] = path
+dependencies[] = taxonomy
+dependencies[] = dblog
+dependencies[] = search
+dependencies[] = field_ui
+dependencies[] = file
+dependencies[] = php
+dependencies[] = rdf
+
+dependencies[] = backup_migrate
+dependencies[] = webform
+dependencies[] = admin_menu
+dependencies[] = admin_menu_toolbar
+dependencies[] = libraries
+dependencies[] = css3pie
+dependencies[] = ckeditor
+dependencies[] = views
+dependencies[] = views_ui
+dependencies[] = globalredirect
+dependencies[] = logintoboggan
+dependencies[] = clone
+dependencies[] = pathauto
+dependencies[] = token
+dependencies[] = override_node_options
+
+dependencies[] = devel
+dependencies[] = features
+dependencies[] = entity
+
+dependencies[] = context
+dependencies[] = context_ui
+dependencies[] = delta
+dependencies[] = delta_ui
+dependencies[] = omega_tools
+
+files[] = faultstart.profile
