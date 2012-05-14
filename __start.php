@@ -72,7 +72,7 @@ switch ($stage) {
 					'http://ftp.drupal.org/files/projects/css3pie-7.x-2.1.zip', 
 					'http://ftp.drupal.org/files/projects/fontyourface-7.x-2.2.zip', 
 					// Structure
-					'http://ftp.drupal.org/files/projects/webform-7.x-3.17.zip',  
+					'http://ftp.drupal.org/files/projects/webform-7.x-3.18.zip',  
 					'http://ftp.drupal.org/files/projects/ctools-7.x-1.0.zip',
 					'http://ftp.drupal.org/files/projects/views-7.x-3.3.zip', 
 					'http://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.0-rc1.zip', 
@@ -86,7 +86,7 @@ switch ($stage) {
 					// Configuration
 					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc2.zip',
 					'http://ftp.drupal.org/files/projects/token-7.x-1.0.zip',
-					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.0.zip',
+					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-beta1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.4.zip',
