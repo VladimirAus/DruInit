@@ -32,6 +32,8 @@ $headerMsg = '';
 switch ($stage) {
 	case 1:
 
+		// TODO: cookie case
+
 		// Processing drupal
 		$initInstall = step1processDrupal();
 		$headerMsg = "INSTALL DRUPAL\n\n";
@@ -48,11 +50,13 @@ switch ($stage) {
 		// Processing libraries
 		$headerMsg = "INSTALL LIBRARIES\n\n";
 		$headerMsg .= step2processLibraries($drupalPath, 'http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.3/ckeditor_3.6.3.zip', 'ckeditor_3.6.3.zip');
-		$headerMsg .= step2processLibraries($drupalPath, 'http://css3pie.com/download-latest', 'PIE-1.0beta5.zip', 'PIE');
+		$headerMsg .= step2processLibraries($drupalPath, 'http://css3pie.com/download-latest', 'PIE-1.0.0.zip', 'PIE');
 
 		buildForm($stage, $headerMsg, 'Themes');
 		break;
 	case 3:
+
+		// TODO: Create subtheme http://drupal.org/node/1298682
 
 		// Processing themes
 		$headerMsg = "INSTALL THEMES\n\n";
@@ -85,7 +89,7 @@ switch ($stage) {
 					//'http://ftp.drupal.org/files/projects/views_php-7.x-1.x-dev.zip', // Safe to use but try not to use it
 					// Configuration
 					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc2.zip',
-					'http://ftp.drupal.org/files/projects/token-7.x-1.0.zip',
+					'http://ftp.drupal.org/files/projects/token-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-beta1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
@@ -101,7 +105,6 @@ switch ($stage) {
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
 					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
 					'http://ftp.drupal.org/files/projects/nice_menus-7.x-2.1.zip',
-					//'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
 					// Theme support
 					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta2.zip',
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
@@ -349,6 +352,10 @@ function buildForm($stage, $result, $stepNext) {
 <body>
 <form id="form-stage" name="form-stage" method="post" action="">
 	<input name="stage" type="hidden" value="<?php print $stage; ?>" />
+    <? if ($stage == 2):?>
+	    <label for="subtheme-name">Omega theme name:</label>
+		<input type="text" name="subtheme-name" id="subtheme-name" value="ifd7demo" /><br />
+	<? endif; ?>
 	<? if ($stage < 5):?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Install <?php print $stepNext; ?>" /><br />
 	<? endif; ?>

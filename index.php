@@ -31,6 +31,7 @@
 			fclose($fp);
 		}
 	}
-		
-	header("Location: http://www.go-fest.me/_stage2/__start.php"); /* Redirect browser */
+	
+	$pageURL = str_replace('index.php', '__start.php', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+	header("Location: " . $pageURL); /* Redirect browser */
 	

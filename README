@@ -6,6 +6,15 @@ Drupal installation made easy. Process:
 
 ===============================================
 
+16-May-2012, ver. 0.0.5
+A. Drupal updates
+- Libraries updated: CSS3Pie 5 beta to 1.0.0
+- Module updates: webform, pathauto, token
+B. Code updates:
+- Generic URL when redirecting from index.php
+
+===============================================
+
 08-May-2012, ver. 0.0.3
 A. Reference to Drupal version is generic now apart from default function parameter values
 B. Updates:
