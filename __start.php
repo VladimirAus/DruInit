@@ -61,6 +61,16 @@ switch ($stage) {
 		// Processing themes
 		$headerMsg = "INSTALL THEMES\n\n";
 		$headerMsg .= step2processThemes($drupalPath, 'http://ftp.drupal.org/files/projects/omega-7.x-3.1.zip', 'omega-7.x-3.1.zip');
+		
+		// Create subtheme
+		if (isset($_POST['subtheme-name'])) {
+			$src = $drupalPath . 'sites/all/themes/omega/starterkits/omega-html5';
+			$dst = $drupalPath . 'sites/all/themes/' . $_POST['subtheme-name'];
+			rcopy($src, $dst);
+			rename ($dst . '/starterkit_omega_html5.info', $dst . '/'.$_POST['subtheme-name'].'.info');
+			$headerMsg .= "\nOmega subtheme copied\n";
+		}
+		
 		buildForm($stage, $headerMsg, 'Modules');
 		break;
 	case 4:

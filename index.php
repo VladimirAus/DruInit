@@ -32,6 +32,11 @@
 		}
 	}
 	
-	$pageURL = str_replace('index.php', '__start.php', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+	if (strpos($_SERVER["REQUEST_URI"], 'index.php') !== false) {
+		$pageURL = str_replace('index.php', '__start.php', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+	}
+	else {
+		$pageURL = 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"] . '/__start.php';
+	}
 	header("Location: " . $pageURL); /* Redirect browser */
 	
