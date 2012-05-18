@@ -214,14 +214,14 @@ base theme = omega';
 					'http://ftp.drupal.org/files/projects/addressfield-7.x-1.0-beta2.zip',
 					//'http://ftp.drupal.org/files/projects/views_php-7.x-1.x-dev.zip', // Safe to use but try not to use it
 					// Configuration
-					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc2.zip',
+					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc3.zip',
 					'http://ftp.drupal.org/files/projects/token-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-beta1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.4.zip',
 					'http://ftp.drupal.org/files/projects/print-7.x-1.0.zip',
-					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc1.zip',
+					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc2.zip',
 					// Permissions
 					'http://ftp.drupal.org/files/projects/override_node_options-7.x-1.12.zip',
 					'http://ftp.drupal.org/files/projects/field_permissions-7.x-1.0-beta2.zip',
