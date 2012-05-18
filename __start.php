@@ -54,7 +54,7 @@ switch ($stage) {
 			$fp = fopen($filename, 'w');
 			fwrite($fp, $contents);
 			fclose($fp);
-			$headerMsg .= "\nTaking care of cookie issue\n";
+			$headerMsg .= $initInstall['message'] . "\nTaking care of cookie issue\n";
 			
 			//.htacess file
 			$request = str_replace('/__start.php', '', $_SERVER["REQUEST_URI"]);
@@ -78,7 +78,7 @@ switch ($stage) {
 				$headerMsg .= "\nTake care of .htaccess file\n";
 			}
 			
-			buildForm($stage, $headerMsg . $initInstall['message'], 'Libraries');
+			buildForm($stage, $headerMsg, 'Libraries');
 		}
 		else {
 			print '<pre>' .$initInstall['message'] . '</pre>';
@@ -461,7 +461,7 @@ function buildForm($stage, $result, $stepNext) {
 	    <label for="subtheme-name">Omega theme name:</label>
 		<input type="text" name="subtheme-name" id="subtheme-name" value="ifd7demo" /><br />
 	<? endif; ?>
-	<? if ($stage == 5):?>
+	<? if ($stage == 4):?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Finish" /><br />
 	<? else:?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Install <?php print $stepNext; ?>" /><br />
@@ -488,11 +488,12 @@ function rrmdir($dir) {
 function rcopy($src, $dst) {
 	if (file_exists($dst)) rrmdir($dst);
 	if (is_dir($src)) {
-		mkdir($dst);
+		if (strlen($dst))
+			mkdir($dst);
 		$files = scandir($src);
 		foreach ($files as $file)
 		if ($file != "." && $file != "..") 
-			rcopy("$src/$file", "$dst/$file");
+			rcopy("$src/$file", strlen($dst)?"$dst/$file":"$file");
 	}
 	else if (file_exists($src)) copy($src, $dst);
 }
