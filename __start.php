@@ -67,8 +67,43 @@ switch ($stage) {
 			$src = $drupalPath . 'sites/all/themes/omega/starterkits/omega-html5';
 			$dst = $drupalPath . 'sites/all/themes/' . $_POST['subtheme-name'];
 			rcopy($src, $dst);
-			rename ($dst . '/starterkit_omega_html5.info', $dst . '/'.$_POST['subtheme-name'].'.info');
 			$headerMsg .= "\nOmega subtheme copied\n";
+			
+			//rename ($dst . '/starterkit_omega_html5.info', $dst . '/'.$_POST['subtheme-name'].'.info');
+			
+
+			// get contents of a file into a string
+			$filename = $dst . '/starterkit_omega_html5.info';
+			$handle = fopen($filename, "r");
+			$contents = fread($handle, filesize($filename));
+			fclose($handle);
+			unlink($filename);
+			
+			$theme_origin = 'name = Omega HTML5 Starterkit
+description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+base theme = omega
+
+; IMPORTANT: DELETE THESE TWO LINES IN YOUR SUBTHEME
+
+hidden = TRUE
+starterkit = TRUE';
+
+			$theme_new = 'name = iFactory Omega HTML5 Theme
+description = iFactory default theme based on <a href="http://drupal.org/project/omega">Omega</a> HTML5 subtheme. More information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
+core = 7.x
+engine = phptemplate
+screenshot = screenshot.png
+base theme = omega';
+			
+			$contents = str_replace($theme_origin, $theme_new, $contents);
+			
+			$fp = fopen($dst . '/'.$_POST['subtheme-name'].'.info', 'w');
+			fwrite($fp, $contents);
+			fclose($fp);
+			$headerMsg .= "\nSubtheme info file generated\n";
 		}
 		
 		buildForm($stage, $headerMsg, 'Modules');
@@ -374,4 +409,28 @@ function buildForm($stage, $result, $stepNext) {
 </body>
 </html>
 <?php
+}
+
+/* functions from http://www.php.net/manual/en/function.copy.php#104020 */
+function rrmdir($dir) {
+	if (is_dir($dir)) {
+		$files = scandir($dir);
+		foreach ($files as $file)
+			if ($file != "." && $file != "..") rrmdir("$dir/$file");
+		rmdir($dir);
+	}
+	else if (file_exists($dir)) unlink($dir);
+}
+
+// copies files and non-empty directories
+function rcopy($src, $dst) {
+	if (file_exists($dst)) rrmdir($dst);
+	if (is_dir($src)) {
+		mkdir($dst);
+		$files = scandir($src);
+		foreach ($files as $file)
+		if ($file != "." && $file != "..") 
+			rcopy("$src/$file", "$dst/$file");
+	}
+	else if (file_exists($src)) copy($src, $dst);
 }
