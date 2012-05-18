@@ -69,8 +69,8 @@ function faultstart_install() {
 	filter_format_save($full_html_format);
 
 	// Enable some standard blocks.
-	//$default_theme = variable_get('theme_default', 'bartik');
-	$default_theme = variable_get('theme_default', 'omega');
+	$default_theme = variable_get('theme_default', 'bartik');
+	//$default_theme = variable_get('theme_default', 'omega');
 	$admin_theme = 'seven';
 	$blocks = array(
 	array(

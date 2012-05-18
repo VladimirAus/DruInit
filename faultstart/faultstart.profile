@@ -7,7 +7,7 @@
  */
 function faultstart_form_install_configure_form_alter(&$form, $form_state) {
 	
-	faultstart_dpm($form);
+	//faultstart_dpm($form);
 
 	// Pre-populate the site name with the server name.
 	$form['site_information']['site_name']['#default_value'] = $_SERVER['SERVER_NAME'];
@@ -42,5 +42,5 @@ function faultstart_dpm($var) {
 
 
 function faultstart_install_settings_form($form, &$form_state, &$install_state) {
-	faultstart_dpm($form);
+	//faultstart_dpm($form);
 }

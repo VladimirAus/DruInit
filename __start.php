@@ -185,6 +185,22 @@ base theme = omega';
 				}
 			}
 			$headerMsg .= "\nDefault installation profile installed\n";
+			
+			// Setup default theme
+			$filename = $startFld . '/faultstart.install';
+			$handle = fopen($filename, "r");
+			$contents = fread($handle, filesize($filename));
+			fclose($handle);
+			unlink($filename);
+			
+			$contents = str_replace("$default_theme = variable_get('theme_default', 'bartik');", 
+									"$default_theme = variable_get('theme_default', '"+$_POST['subtheme-name']+"');", $contents);
+			
+			$fp = fopen($filename, 'w');
+			fwrite($fp, $contents);
+			fclose($fp);
+			$headerMsg .= $initInstall['message'] . "Setting default theme in installation profile\n";
+			
 		}
 		
 		buildForm($stage, $headerMsg, 'Modules');
