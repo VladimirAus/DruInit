@@ -46,7 +46,7 @@ switch ($stage) {
 		}
 		
 		// Taking care of cookie issue
-		mv($drupalPath.'misc/jquery.cookie.js', $drupalPath.'misc/jquery_cookie.js');
+		rename($drupalPath.'misc/jquery.cookie.js', $drupalPath.'misc/jquery_cookie.js');
 		
 		// get contents of a file into a string
 		$filename = $drupalPath . 'modules/system/system.module';
