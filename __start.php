@@ -194,12 +194,12 @@ base theme = omega';
 			unlink($filename);
 			
 			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
-									'$default_theme = variable_get(\'theme_default\', \''+$_POST['subtheme-name']+'\');', $contents);
+									'$default_theme = variable_get(\'theme_default\', \''.$_POST['subtheme-name'].'\');', $contents);
 			
 			$fp = fopen($filename, 'w');
 			fwrite($fp, $contents);
 			fclose($fp);
-			$headerMsg .= $initInstall['message'] . "Setting default theme in installation profile\n";
+			$headerMsg .= "Setting default theme in installation profile\n";
 			
 		}
 		
@@ -247,6 +247,9 @@ base theme = omega';
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
 					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
 					'http://ftp.drupal.org/files/projects/nice_menus-7.x-2.1.zip',
+					// SEO
+					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
+					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
 					// Theme support
 					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta2.zip',
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
