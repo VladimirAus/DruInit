@@ -193,8 +193,8 @@ base theme = omega';
 			fclose($handle);
 			unlink($filename);
 			
-			$contents = str_replace("$default_theme = variable_get('theme_default', 'bartik');", 
-									"$default_theme = variable_get('theme_default', '"+$_POST['subtheme-name']+"');", $contents);
+			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
+									'$default_theme = variable_get(\'theme_default\', \''+$_POST['subtheme-name']+'\');', $contents);
 			
 			$fp = fopen($filename, 'w');
 			fwrite($fp, $contents);
