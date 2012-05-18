@@ -37,6 +37,10 @@ dependencies[] = devel
 dependencies[] = features
 dependencies[] = entity
 
+dependencies[] = nice_menus
+dependencies[] = css_injector
+dependencies[] = metatag
+
 dependencies[] = context
 dependencies[] = context_ui
 dependencies[] = delta

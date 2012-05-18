@@ -6,6 +6,18 @@ Drupal installation made easy. Process:
 
 ===============================================
 
+18-May-2012, ver. 0.0.6
+A. Drupal updates
+- SEO Modules added: Google Analytics, Meta Tags, XML site map
+- Module updates: Admin menu, features
+B. Code updates:
+- Installation complete
+- - Take care of .htaccess, cookie issue
+- - Copy & modify installation profile
+- - Copy drupal & delete installation files
+
+===============================================
+
 16-May-2012, ver. 0.0.5
 A. Drupal updates
 - Libraries updated: CSS3Pie 5 beta to 1.0.0
@@ -24,12 +36,32 @@ B. Updates:
 - Modules added: FontYourFace, Views Slideshow, Omega Theme Modules (Context, Delta, Omega Tools), Devel, Features, Entity, Override node options
 C. Update to static instalation profile
 
-TODO: 
-- Take Care of cookies issue
-- Getting Drupal files from GitHub
-- Generate profile
-
 ===============================================
 
 05-May-2012, ver. 0.0.1
  - Initial release: downloads Drupal 7.12, downloads CKEditor, creates libraries folder
+ 
+ ==============================================
+ 
+TODO list in installation profile:
+
+Enable modules: nice menus, CSS injector, meta tags
+
+Hide navigation, login and search in the left column
+Enable omega subtheme
+Remove secondary menu
+Upload iFactory logo and ico
+Create iFactory administator user (administyrator priveledges): ifeditor
+
+Create manage view
+Create administrator menu
+
+Create menus: iF Editor Menu & iF Client Menu
+Add account to menu
+Add menus to Nice menus, set blocks to be displayed to different roles
+Add stick to top stile, brand with iFactory
+Add logout link
+
+Setup URL alias patterns
+Create basic CKEditor
+Enable 'View published content' permission for all users

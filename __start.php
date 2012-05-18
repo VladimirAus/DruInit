@@ -250,6 +250,7 @@ base theme = omega';
 					// SEO
 					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
 					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
+					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
 					// Theme support
 					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta2.zip',
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
