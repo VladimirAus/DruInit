@@ -38,52 +38,53 @@ switch ($stage) {
 		$initInstall = step1processDrupal();
 		$headerMsg = "INSTALL DRUPAL\n\n";
 		if ($drupalPath = $initInstall['path']) {
+			
+			// Taking care of cookie issue
+			rename($drupalPath.'misc/jquery.cookie.js', $drupalPath.'misc/jquery_cookie.js');
+			
+			// get contents of a file into a string
+			$filename = $drupalPath . 'modules/system/system.module';
+			$handle = fopen($filename, "r");
+			$contents = fread($handle, filesize($filename));
+			fclose($handle);
+			unlink($filename);
+			
+			$contents = str_replace('jquery.cookie.js', 'jquery_cookie.js', $contents);
+			
+			$fp = fopen($filename, 'w');
+			fwrite($fp, $contents);
+			fclose($fp);
+			$headerMsg .= "\nTaking care of cookie issue\n";
+			
+			//.htacess file
+			$request = str_replace('/__start.php', '', $_SERVER["REQUEST_URI"]);
+			//$params = explode('/', $request);
+			if ( ($request != '') && ($request != '/')
+			) {
+				$request = ($request[strlen($request)-1] == '/')?substr($request, 0, strlen($request)-1):$request;
+				$request = ($request[0] == '/')?$request:'/'.$request;
+				
+				$filename = $drupalPath . '.htaccess';
+				$handle = fopen($filename, "r");
+				$contents = fread($handle, filesize($filename));
+				fclose($handle);
+				unlink($filename);
+				
+				$contents = str_replace('  # RewriteBase /drupal', '  RewriteBase '.$request, $contents);
+				
+				$fp = fopen($filename, 'w');
+				fwrite($fp, $contents);
+				fclose($fp);
+				$headerMsg .= "\nTake care of .htaccess file\n";
+			}
+			
 			buildForm($stage, $headerMsg . $initInstall['message'], 'Libraries');
 		}
 		else {
 			print '<pre>' .$initInstall['message'] . '</pre>';
 			exit;
 		}
-		
-		// Taking care of cookie issue
-		rename($drupalPath.'misc/jquery.cookie.js', $drupalPath.'misc/jquery_cookie.js');
-		
-		// get contents of a file into a string
-		$filename = $drupalPath . 'modules/system/system.module';
-		$handle = fopen($filename, "r");
-		$contents = fread($handle, filesize($filename));
-		fclose($handle);
-		unlink($filename);
-		
-		$contents = str_replace('jquery.cookie.js', 'jquery_cookie.js', $contents);
-		
-		$fp = fopen($filename, 'w');
-		fwrite($fp, $contents);
-		fclose($fp);
-		$headerMsg .= "\nTaking care of cookie issue\n";
-		
-		//.htacess file
-		$request = str_replace('/__start.php', '', $_SERVER["REQUEST_URI"]);
-		//$params = explode('/', $request);
-		if ( ($request != '') && ($request != '/')
-		) {
-			$request = ($request[strlen($request)-1] == '/')?substr($request, 0, strlen($request)-1):$request;
-			$request = ($request[0] == '/')?$request:'/'.$request;
-			
-			$filename = $drupalPath . '.htaccess';
-			$handle = fopen($filename, "r");
-			$contents = fread($handle, filesize($filename));
-			fclose($handle);
-			unlink($filename);
-			
-			$contents = str_replace('  # RewriteBase /drupal', '  RewriteBase '.$request, $contents);
-			
-			$fp = fopen($filename, 'w');
-			fwrite($fp, $contents);
-			fclose($fp);
-			$headerMsg .= "\nTake care of .htaccess file\n";
-		}
-		
+
 		break;
 	case 2:
 
@@ -150,7 +151,7 @@ base theme = omega';
 			$files = scandir($cssdst);
 			foreach ($files as $file) {
 				if (strpos($file, 'YOURTHEME') !== false) { 
-					mv("$cssdst/$file", str_replace('YOURTHEME', $_POST['subtheme-name'], "$dst/$file"));
+					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['subtheme-name'], "$dst/$file"));
 				}
 			}
 			$headerMsg .= "\nSubtheme CSS files renamed\n";
