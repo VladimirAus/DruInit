@@ -27,7 +27,6 @@
 			
 			$fp = fopen($fileToCopy['file'], 'w');
 			fwrite($fp, $contents);
-			//fwrite($fp, '23');
 			fclose($fp);
 		}
 	}

@@ -157,6 +157,36 @@ base theme = omega';
 			$headerMsg .= "\nSubtheme CSS files renamed\n";
 		}
 		
+		// Instalation parameters
+		if (isset($_POST['inst-option-default'])) {
+			$startFld = $drupalPath . 'profiles/faultstart';
+			//mkdir($startFld, 0755);
+			if (mkdir($startFld, 0755)) {
+			
+				$filesToRead = array(
+					//array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/__start.php', 'file' => '__start.php'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.install', 'file' => $startFld . '/faultstart.install'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.info', 'file' => $startFld . '/faultstart.info'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.profile', 'file' => $startFld . '/faultstart.profile'),
+				);
+				
+				foreach ($filesToRead as $fileToCopy) {
+				
+					$handle = fopen($fileToCopy['url'], "rb");
+					$contents = '';
+					while (!feof($handle)) {
+					  $contents .= fread($handle, 8192);
+					}
+					fclose($handle);
+					
+					$fp = fopen($fileToCopy['file'], 'w');
+					fwrite($fp, $contents);
+					fclose($fp);
+				}
+			}
+			$headerMsg .= "\nDefault installation profile installed\n";
+		}
+		
 		buildForm($stage, $headerMsg, 'Modules');
 		break;
 	case 4:
@@ -460,6 +490,10 @@ function buildForm($stage, $result, $stepNext) {
     <? if ($stage == 2):?>
 	    <label for="subtheme-name">Omega theme name:</label>
 		<input type="text" name="subtheme-name" id="subtheme-name" value="ifd7demo" /><br />
+        <label for="subtheme-name">Select intall options:</label><br />
+		<input type="checkbox" name="inst-option-default" id="inst-option-default" value="1" checked /> Default iFactory installation profile<br />
+        More options TBA<br />
+        <br />
 	<? endif; ?>
 	<? if ($stage == 4):?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Finish" /><br />
