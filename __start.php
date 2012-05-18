@@ -44,6 +44,46 @@ switch ($stage) {
 			print '<pre>' .$initInstall['message'] . '</pre>';
 			exit;
 		}
+		
+		// Taking care of cookie issue
+		mv($drupalPath.'misc/jquery.cookie.js', $drupalPath.'misc/jquery_cookie.js');
+		
+		// get contents of a file into a string
+		$filename = $drupalPath . 'modules/system/system.module';
+		$handle = fopen($filename, "r");
+		$contents = fread($handle, filesize($filename));
+		fclose($handle);
+		unlink($filename);
+		
+		$contents = str_replace('jquery.cookie.js', 'jquery_cookie.js', $contents);
+		
+		$fp = fopen($filename, 'w');
+		fwrite($fp, $contents);
+		fclose($fp);
+		$headerMsg .= "\nTaking care of cookie issue\n";
+		
+		//.htacess file
+		$request = str_replace('/__start.php', '', $_SERVER["REQUEST_URI"]);
+		//$params = explode('/', $request);
+		if ( ($request != '') && ($request != '/')
+		) {
+			$request = ($request[strlen($request)-1] == '/')?substr($request, 0, strlen($request)-1):$request;
+			$request = ($request[0] == '/')?$request:'/'.$request;
+			
+			$filename = $drupalPath . '.htaccess';
+			$handle = fopen($filename, "r");
+			$contents = fread($handle, filesize($filename));
+			fclose($handle);
+			unlink($filename);
+			
+			$contents = str_replace('  # RewriteBase /drupal', '  RewriteBase '.$request, $contents);
+			
+			$fp = fopen($filename, 'w');
+			fwrite($fp, $contents);
+			fclose($fp);
+			$headerMsg .= "\nTake care of .htaccess file\n";
+		}
+		
 		break;
 	case 2:
 
@@ -104,6 +144,16 @@ base theme = omega';
 			fwrite($fp, $contents);
 			fclose($fp);
 			$headerMsg .= "\nSubtheme info file generated\n";
+			
+			// CSS renaming
+			$cssdst = $dst . '/css';
+			$files = scandir($cssdst);
+			foreach ($files as $file) {
+				if (strpos($file, 'YOURTHEME') !== false) { 
+					mv("$cssdst/$file", str_replace('YOURTHEME', $_POST['subtheme-name'], "$dst/$file"));
+				}
+			}
+			$headerMsg .= "\nSubtheme CSS files renamed\n";
 		}
 		
 		buildForm($stage, $headerMsg, 'Modules');
@@ -162,6 +212,15 @@ base theme = omega';
 		}
 		
 		buildForm($stage, $headerMsg, '');
+		break;
+	case 5:
+		rrmdir('__start');
+		rcopy($drupalPath, '');
+		rrmdir($drupalPath);
+		
+		// Redirect to installation
+		$pageURL = str_replace('/__start.php', '', 'http://'.$_SERVER["SERVER_NAME"].$_SERVER["REQUEST_URI"]);
+		header("Location: " . $pageURL);
 		break;
 }
 
@@ -401,7 +460,9 @@ function buildForm($stage, $result, $stepNext) {
 	    <label for="subtheme-name">Omega theme name:</label>
 		<input type="text" name="subtheme-name" id="subtheme-name" value="ifd7demo" /><br />
 	<? endif; ?>
-	<? if ($stage < 5):?>
+	<? if ($stage == 5):?>
+		<input type="submit" name="submit-stage" id="submit-stage" value="Finish" /><br />
+	<? else:?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Install <?php print $stepNext; ?>" /><br />
 	<? endif; ?>
 	<textarea name="console" cols="100" rows="40"><?php print $result; ?></textarea><br />
