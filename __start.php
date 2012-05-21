@@ -141,6 +141,13 @@ base theme = omega';
 			
 			$contents = str_replace($theme_origin, $theme_new, $contents);
 			
+			// Debbuging setting
+			$theme_origin = 'settings[alpha_debug_block_toggle] = \'1\'
+settings[alpha_debug_block_active] = \'1\'';
+			$theme_new = 'settings[alpha_debug_block_toggle] = \'0\'
+settings[alpha_debug_block_active] = \'0\'';
+			$contents = str_replace($theme_origin, $theme_new, $contents);
+						
 			$fp = fopen($dst . '/'.$_POST['subtheme-name'].'.info', 'w');
 			fwrite($fp, $contents);
 			fclose($fp);
@@ -194,7 +201,8 @@ base theme = omega';
 			unlink($filename);
 			
 			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
-									'$default_theme = variable_get(\'theme_default\', \''.$_POST['subtheme-name'].'\');', $contents);
+									'variable_set(\'theme_default\', \''.$_POST['subtheme-name'].'\'); $default_theme = variable_get(\'theme_default\', \''.$_POST['subtheme-name'].'\');', 
+									$contents);
 			
 			$fp = fopen($filename, 'w');
 			fwrite($fp, $contents);
