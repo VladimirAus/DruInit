@@ -104,13 +104,13 @@ switch ($stage) {
 		$headerMsg .= step2processThemes($drupalPath, 'http://ftp.drupal.org/files/projects/omega-7.x-3.1.zip', 'omega-7.x-3.1.zip');
 		
 		// Create subtheme
-		if (isset($_POST['subtheme-name'])) {
+		if (isset($_POST['opt-install-omega-subtheme-name'])) {
 			$src = $drupalPath . 'sites/all/themes/omega/starterkits/omega-html5';
-			$dst = $drupalPath . 'sites/all/themes/' . $_POST['subtheme-name'];
+			$dst = $drupalPath . 'sites/all/themes/' . $_POST['opt-install-omega-subtheme-name'];
 			rcopy($src, $dst);
 			$headerMsg .= "\nOmega subtheme copied\n";
 			
-			//rename ($dst . '/starterkit_omega_html5.info', $dst . '/'.$_POST['subtheme-name'].'.info');
+			//rename ($dst . '/starterkit_omega_html5.info', $dst . '/'.$_POST['opt-install-omega-subtheme-name'].'.info');
 			
 
 			// get contents of a file into a string
@@ -143,12 +143,16 @@ base theme = omega';
 			
 			// Debbuging setting
 			$theme_origin = 'settings[alpha_debug_block_toggle] = \'1\'
-settings[alpha_debug_block_active] = \'1\'';
+settings[alpha_debug_block_active] = \'1\'
+settings[alpha_debug_grid_toggle] = \'1\'
+settings[alpha_debug_grid_active] = \'1\'';
 			$theme_new = 'settings[alpha_debug_block_toggle] = \'0\'
-settings[alpha_debug_block_active] = \'0\'';
+settings[alpha_debug_block_active] = \'0\'
+settings[alpha_debug_grid_toggle] = \'0\'
+settings[alpha_debug_grid_active] = \'0\'';
 			$contents = str_replace($theme_origin, $theme_new, $contents);
 						
-			$fp = fopen($dst . '/'.$_POST['subtheme-name'].'.info', 'w');
+			$fp = fopen($dst . '/'.$_POST['opt-install-omega-subtheme-name'].'.info', 'w');
 			fwrite($fp, $contents);
 			fclose($fp);
 			$headerMsg .= "\nSubtheme info file generated\n";
@@ -158,14 +162,14 @@ settings[alpha_debug_block_active] = \'0\'';
 			$files = scandir($cssdst);
 			foreach ($files as $file) {
 				if (strpos($file, 'YOURTHEME') !== false) { 
-					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['subtheme-name'], "$dst/$file"));
+					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['opt-install-omega-subtheme-name'], "$dst/$file"));
 				}
 			}
 			$headerMsg .= "\nSubtheme CSS files renamed\n";
 		}
 		
 		// Instalation parameters
-		if (isset($_POST['inst-option-default'])) {
+		if (isset($_POST['opt-install-omega'])) {
 			$startFld = $drupalPath . 'profiles/faultstart';
 			//mkdir($startFld, 0755);
 			if (mkdir($startFld, 0755)) {
@@ -203,7 +207,7 @@ settings[alpha_debug_block_active] = \'0\'';
 			// Change theme to omega // TODO: install 
 			/*
 			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
-									'variable_set(\'theme_default\', \''.$_POST['subtheme-name'].'\'); $default_theme = variable_get(\'theme_default\', \''.$_POST['subtheme-name'].'\');', 
+									'variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\'); $default_theme = variable_get(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');', 
 									$contents);
 			*/
 									
@@ -228,10 +232,10 @@ settings[alpha_debug_block_active] = \'0\'';
 		db_update(\'system\')
 		->fields(array(\'status\' => 1))
 		->condition(\'type\', \'theme\')
-		->condition(\'name\', \''.$_POST['subtheme-name'].'\')
+		->condition(\'name\', \''.$_POST['opt-install-omega-subtheme-name'].'\')
 		->execute();
 		
-		variable_set(\'theme_default\', \''.$_POST['subtheme-name'].'\');
+		variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');
 		';
 			
 			$contents = str_replace($install_origin, $install_new, $contents);
@@ -296,6 +300,11 @@ settings[alpha_debug_block_active] = \'0\'';
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
 					'http://ftp.drupal.org/files/projects/omega_tools-7.x-3.0-rc4.zip',
 					);
+					
+		if (!empty($_POST['opt-install-shop-commerce'])) {
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce-7.x-1.3.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_australia-7.x-1.0.zip');
+		}
 
 		foreach ($modules as $module) {
 			$filename = explode('/', $module);
@@ -548,13 +557,17 @@ function buildForm($stage, $result, $stepNext) {
 <form id="form-stage" name="form-stage" method="post" action="">
 	<input name="stage" type="hidden" value="<?php print $stage; ?>" />
     <? if ($stage == 2):?>
-	    <label for="subtheme-name">Omega theme name:</label>
-		<input type="text" name="subtheme-name" id="subtheme-name" value="ifd7demo" /><br />
-        <label for="subtheme-name">Select intall options:</label><br />
-		<input type="checkbox" name="inst-option-default" id="inst-option-default" value="1" checked /> Default iFactory installation profile<br />
-        More options TBA<br />
+        <label for="opt-install-omega">Installation options:</label><br />
+		<input type="checkbox" name="opt-install-omega" id="opt-install-omega" value="1" checked /> Install Omega & setup subtheme(responsive design)<br />
+	    <label for="opt-install-omega-subtheme-name">Omega subtheme name:</label>
+		<input type="text" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="ifd7demo" /><br /><strong></strong>
+		<input type="checkbox" name="opt-install-user-default" id="opt-install-user-default" value="1" checked /> Default admin configuration (with menu)<br />
+        <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" /> Install & configure commerce & Australia<br />
         <br />
 	<? endif; ?>
+    <? if (!empty($_POST['opt-install-shop-commerce'])):?>
+    	 <input type="hidden" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" />
+    <? endif; ?>
 	<? if ($stage == 4):?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Finish" /><br />
 	<? else:?>
