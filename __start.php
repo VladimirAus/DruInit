@@ -200,9 +200,41 @@ settings[alpha_debug_block_active] = \'0\'';
 			fclose($handle);
 			unlink($filename);
 			
+			// Change theme to omega // TODO: install 
+			/*
 			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
 									'variable_set(\'theme_default\', \''.$_POST['subtheme-name'].'\'); $default_theme = variable_get(\'theme_default\', \''.$_POST['subtheme-name'].'\');', 
 									$contents);
+			*/
+									
+				$install_origin = 'db_update(\'system\')
+		->fields(array(\'status\' => 1))
+		->condition(\'type\', \'theme\')
+		->condition(\'name\', \'seven\')
+		->execute();';
+
+				$install_new = 'db_update(\'system\')
+		->fields(array(\'status\' => 1))
+		->condition(\'type\', \'theme\')
+		->condition(\'name\', \'seven\')
+		->execute();
+		
+		db_update(\'system\')
+		->fields(array(\'status\' => 0))
+		->condition(\'type\', \'theme\')
+		->condition(\'name\', \'bartik\')
+		->execute();
+		
+		db_update(\'system\')
+		->fields(array(\'status\' => 1))
+		->condition(\'type\', \'theme\')
+		->condition(\'name\', \''.$_POST['subtheme-name'].'\')
+		->execute();
+		
+		variable_set(\'theme_default\', \''.$_POST['subtheme-name'].'\');
+		';
+			
+			$contents = str_replace($install_origin, $install_new, $contents);
 			
 			$fp = fopen($filename, 'w');
 			fwrite($fp, $contents);
@@ -260,7 +292,7 @@ settings[alpha_debug_block_active] = \'0\'';
 					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
 					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
 					// Theme support
-					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta2.zip',
+					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta3.zip',
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
 					'http://ftp.drupal.org/files/projects/omega_tools-7.x-3.0-rc4.zip',
 					);

@@ -14,15 +14,17 @@ function faultstart_form_install_configure_form_alter(&$form, $form_state) {
 	//$form['site_information']['site_email']['#default_value'] = '@ifactory.com.au';
 	$form['admin_account']['account']['name']['#default_value'] = 'ifadmin';
 	$form['server_settings']['site_default_country']['#default_value'] = 'AU';
-	$form['server_settings']['date_default_timezone']['#default_value'] = 'Australia/Brisbane';
+	//$form['server_settings']['date_default_timezone']['#default_value'] = "Australia/Brisbane"; // TODO: not working properly, selects Melbourne
+	//$form['server_settings']['date_default_timezone']['#value'] = "Australia/Brisbane";
+	$form["update_notifications"]["update_status_module"]["#default_value"][1] = 0;
 	  
 }
 
 
 function faultstart_form_install_settings_form_alter(&$form, $form_state) {
 	// doesnt work
-	$form['mysql']['database']['#default_value'] = 'ifd7demo_d7_installprof';
-	$form['mysql']['username']['#default_value'] = 'ifd7demo_sqlu';
+	//$form['mysql']['database']['#default_value'] = 'ifd7demo_d7_installprof';
+	//$form['mysql']['username']['#default_value'] = 'ifd7demo_sqlu';
 
 }
 

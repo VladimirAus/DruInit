@@ -398,22 +398,32 @@ function faultstart_install() {
 
 	// Enable default permissions for system roles.
 	$filtered_html_permission = filter_permission_name($filtered_html_format);
+	
+	// Allow visitor account creation, but with administrative approval.
+	variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
+	
+	// Enable default permissions for system roles.
 	//user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', 'access comments', $filtered_html_permission));
 	//user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', 'access comments', 'post comments', 'skip comment approval', $filtered_html_permission));
+	user_role_grant_permissions(DRUPAL_ANONYMOUS_RID, array('access content', $filtered_html_permission));
+	user_role_grant_permissions(DRUPAL_AUTHENTICATED_RID, array('access content', $filtered_html_permission));
 
 	// Create a default role for site administrators, with all available permissions assigned.
 	$admin_role = new stdClass();
 	$admin_role->name = 'administrator';
 	$admin_role->weight = 2;
 	user_role_save($admin_role);
-	user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
+	
+	// Grant admin permissions
+	//user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
+	user_role_grant_permissions($admin_role->rid, array('access administration pages', 'access all views', 'access all webform results', 'access backup and migrate', 'access backup files', 'access content', 'access content overview', 'access contextual links', 'access own webform results', 'access own webform submissions', 'access site in maintenance mode', 'access user profiles', 'administer backup and migrate', 'administer css injection', 'administer css3pie', 'administer delta', 'administer image styles', 'administer menu', 'administer meta tags', 'administer pathauto', 'administer software updates', 'administer taxonomy', 'administer url aliases', 'administer views', 'cancel account', 'change own username', 'clone node', 'clone own nodes', 'create article content', 'create page content', 'create url aliases', 'create webform content', 'delete all webform submissions', 'delete any article content', 'delete any page content', 'delete any webform content', 'delete backup files', 'delete own article content', 'delete own page content', 'delete own webform content', 'delete own webform submissions', 'delete terms in 1', 'edit all webform submissions', 'edit any article content', 'edit any page content', 'edit any webform content', 'edit meta tags', 'edit own article content', 'edit own page content', 'edit own webform content', 'edit own webform submissions', 'edit terms in 1', 'enter webform revision log entry', 'notify of path changes', 'override article published option', 'override page published option', 'override webform authored by option', 'override webform authored on option', 'override webform promote to front page option', 'override webform published option', 'override webform revision option', 'override webform sticky option', 'perform backup', 'restore from backup', 'search content', 'select account cancellation method', 'use text format filtered_html', 'view own unpublished content', 'view the administration theme'));
 	// Set this as the administrator role.
 	variable_set('user_admin_role', $admin_role->rid);
 
 	// Assign user 1 the "administrator" role.
 	db_insert('users_roles')
-	->fields(array('uid' => 1, 'rid' => $admin_role->rid))
-	->execute();
+		->fields(array('uid' => 1, 'rid' => $admin_role->rid))
+		->execute();
 
 	// IFIP. Step 1
 	// Create a role for site editor.
@@ -428,18 +438,18 @@ function faultstart_install() {
 
 	// Assign user 2 the "editor" role.
 	db_insert('users_roles')
-	->fields(array('uid' => 2, 'rid' => $editor_role->rid))
-	->execute();
+		->fields(array('uid' => 2, 'rid' => $editor_role->rid))
+		->execute();
 
 	// Update the menu router information.
 	menu_rebuild();
 
 	// Enable the admin theme.
 	db_update('system')
-	->fields(array('status' => 1))
-	->condition('type', 'theme')
-	->condition('name', 'seven')
-	->execute();
+		->fields(array('status' => 1))
+		->condition('type', 'theme')
+		->condition('name', 'seven')
+		->execute();
 	variable_set('admin_theme', 'seven');
 	variable_set('node_admin_theme', '1');
 
@@ -450,6 +460,14 @@ function faultstart_install() {
 	$node->title = "Home page";
 	$node->body['und']['0']['value'] = 'Lorem ipsum... this is the REmix!';
 	node_save($node);
+	
+	// Set as home page
+	db_update('variable')
+		->fields(array('value' => 'node/1'))
+		->condition('name', 'site_frontpage')
+		->execute();
+	variable_set('site_frontpage', 'node/1');
+
 
 	$node = new stdClass();
 	$node->type = 'page';
@@ -503,7 +521,6 @@ function faultstart_install() {
 		'weight' => 25,
 	);
 	menu_link_save($item);
-
 }
 
 
