@@ -255,10 +255,11 @@ settings[alpha_debug_grid_active] = \'0\'';
 										
 					$install_origin = 'files[] = faultstart.profile';
 	
-					$install_new = 'dependencies[] = commerce
-dependencies[] = commerce_ui
-dependencies[] = commerce_cart
-dependencies[] = commerce_checkout
+					$install_new = 'dependencies[] = commerce_cart
+dependencies[] = commerce_customer_ui
+dependencies[] = commerce_line_item_ui
+dependencies[] = commerce_payment_ui
+dependencies[] = commerce_product_ui
 
 files[] = faultstart.profile';
 				

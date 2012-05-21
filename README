@@ -6,6 +6,14 @@ Drupal installation made easy. Process:
 
 ===============================================
 
+21-May-2012, ver. 0.0.7
+A. Commerce template started
+B. Drupal updates
+- Modules added: Rules, Commerce
+- Module updates: Context
+
+===============================================
+
 18-May-2012, ver. 0.0.6
 A. Drupal updates
 - SEO Modules added: Google Analytics, Meta Tags, XML site map
@@ -65,3 +73,9 @@ Add logout link
 Setup URL alias patterns
 Create basic CKEditor
 Enable 'View published content' permission for all users
+
+------------------------------------------
+
+Commerce to do
+Create product type 'toy' with extra fields: description, image
+Create three toys

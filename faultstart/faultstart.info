@@ -34,7 +34,6 @@ dependencies[] = token
 dependencies[] = override_node_options
 
 dependencies[] = rules
-dependencies[] = rules_ui
 
 dependencies[] = devel
 dependencies[] = features
