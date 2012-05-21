@@ -204,12 +204,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 			fclose($handle);
 			unlink($filename);
 			
-			// Change theme to omega // TODO: install 
-			/*
-			$contents = str_replace('$default_theme = variable_get(\'theme_default\', \'bartik\');', 
-									'variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\'); $default_theme = variable_get(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');', 
-									$contents);
-			*/
+			// Change theme to omega
 									
 				$install_origin = 'db_update(\'system\')
 		->fields(array(\'status\' => 1))
@@ -245,6 +240,36 @@ settings[alpha_debug_grid_active] = \'0\'';
 			fclose($fp);
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
+			$headerMsg .= "\nDefault installation profile installed\n";
+			
+			// Commerce setting
+			if (!empty($_POST['opt-install-shop-commerce'])) {
+				// Modify .info file
+				$filename = $startFld . '/faultstart.info';
+				$handle = fopen($filename, "r");
+				$contents = fread($handle, filesize($filename));
+				fclose($handle);
+				unlink($filename);
+				
+				// Change theme to omega
+										
+					$install_origin = 'files[] = faultstart.profile';
+	
+					$install_new = 'dependencies[] = commerce
+dependencies[] = commerce_ui
+dependencies[] = commerce_cart
+dependencies[] = commerce_checkout
+
+files[] = faultstart.profile';
+				
+				$contents = str_replace($install_origin, $install_new, $contents);
+				
+				$fp = fopen($filename, 'w');
+				fwrite($fp, $contents);
+				fclose($fp);
+				$headerMsg .= "Setting default modules in info file\n";
+			}
+			
 		}
 		
 		buildForm($stage, $headerMsg, 'Modules');
@@ -269,6 +294,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 					'http://ftp.drupal.org/files/projects/views_slideshow-7.x-3.0.zip',
 					'http://ftp.drupal.org/files/projects/entity-7.x-1.0-rc2.zip', 
 					'http://ftp.drupal.org/files/projects/entityreference-7.x-1.0-rc1.zip', 
+					'http://ftp.drupal.org/files/projects/rules-7.x-2.1.zip',
 					// Fields
 					'http://ftp.drupal.org/files/projects/date-7.x-2.5.zip', 
 					'http://ftp.drupal.org/files/projects/addressfield-7.x-1.0-beta2.zip',

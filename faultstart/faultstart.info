@@ -33,9 +33,13 @@ dependencies[] = pathauto
 dependencies[] = token
 dependencies[] = override_node_options
 
+dependencies[] = rules
+dependencies[] = rules_ui
+
 dependencies[] = devel
 dependencies[] = features
 dependencies[] = entity
+dependencies[] = entity_token
 
 dependencies[] = nice_menus
 dependencies[] = css_injector
