@@ -293,7 +293,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/views-7.x-3.3.zip', 
 					'http://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.0-rc1.zip', 
 					'http://ftp.drupal.org/files/projects/views_slideshow-7.x-3.0.zip',
-					'http://ftp.drupal.org/files/projects/entity-7.x-1.0-rc2.zip', 
+					'http://ftp.drupal.org/files/projects/entity-7.x-1.0-rc3.zip', 
 					'http://ftp.drupal.org/files/projects/entityreference-7.x-1.0-rc1.zip', 
 					'http://ftp.drupal.org/files/projects/rules-7.x-2.1.zip',
 					// Fields
