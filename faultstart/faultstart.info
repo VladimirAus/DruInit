@@ -18,7 +18,6 @@ dependencies[] = php
 dependencies[] = rdf
 
 dependencies[] = backup_migrate
-dependencies[] = webform
 dependencies[] = admin_menu
 dependencies[] = admin_menu_toolbar
 dependencies[] = libraries

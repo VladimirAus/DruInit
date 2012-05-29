@@ -198,21 +198,15 @@ settings[alpha_debug_grid_active] = \'0\'';
 			$headerMsg .= "\nDefault installation profile installed\n";
 			
 			// Setup default theme
-			$filename = $startFld . '/faultstart.install';
-			$handle = fopen($filename, "r");
-			$contents = fread($handle, filesize($filename));
-			fclose($handle);
-			unlink($filename);
 			
 			// Change theme to omega
-									
-				$install_origin = 'db_update(\'system\')
+			$original_text = 'db_update(\'system\')
 		->fields(array(\'status\' => 1))
 		->condition(\'type\', \'theme\')
 		->condition(\'name\', \'seven\')
 		->execute();';
 
-				$install_new = 'db_update(\'system\')
+			$replace_text = 'db_update(\'system\')
 		->fields(array(\'status\' => 1))
 		->condition(\'type\', \'theme\')
 		->condition(\'name\', \'seven\')
@@ -233,29 +227,29 @@ settings[alpha_debug_grid_active] = \'0\'';
 		variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');
 		';
 			
-			$contents = str_replace($install_origin, $install_new, $contents);
-			
-			$fp = fopen($filename, 'w');
-			fwrite($fp, $contents);
-			fclose($fp);
+			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
 			$headerMsg .= "\nDefault installation profile installed\n";
 			
+			// Modify .info file
+			
+			// Webform
+			if (!empty($_POST['opt-install-webform-form'])) {
+				modifyProfileFile($startFld, '$flag_install_webform_form = true;', '$flag_install_webform_form = false;', 'faultstart.install');
+				
+				$replace_text = 'dependencies[] = webform
+
+files[] = faultstart.profile';
+				
+				modifyProfileFile($startFld, $replace_text);
+				$headerMsg .= "Setting default webform modules in info file\n";
+			}
+			
 			// Commerce setting
 			if (!empty($_POST['opt-install-shop-commerce'])) {
-				// Modify .info file
-				$filename = $startFld . '/faultstart.info';
-				$handle = fopen($filename, "r");
-				$contents = fread($handle, filesize($filename));
-				fclose($handle);
-				unlink($filename);
-				
-				// Change theme to omega
-										
-					$install_origin = 'files[] = faultstart.profile';
-	
-					$install_new = 'dependencies[] = commerce_cart
+
+				$replace_text = 'dependencies[] = commerce_cart
 dependencies[] = commerce_customer_ui
 dependencies[] = commerce_line_item_ui
 dependencies[] = commerce_payment_ui
@@ -263,12 +257,8 @@ dependencies[] = commerce_product_ui
 
 files[] = faultstart.profile';
 				
-				$contents = str_replace($install_origin, $install_new, $contents);
-				
-				$fp = fopen($filename, 'w');
-				fwrite($fp, $contents);
-				fclose($fp);
-				$headerMsg .= "Setting default modules in info file\n";
+				modifyProfileFile($startFld, $replace_text);
+				$headerMsg .= "Setting default commerce modules in info file\n";
 			}
 			
 		}
@@ -354,6 +344,22 @@ files[] = faultstart.profile';
 
 ////////////////////////
 // FUNCTIONS
+
+function modifyProfileFile($startFld, $replace_text, $original_text = 'files[] = faultstart.profile', $filetochange = 'faultstart.info') {
+	$filename = $startFld . '/' . $filetochange;
+	$handle = fopen($filename, "r");
+	$contents = fread($handle, filesize($filename));
+	fclose($handle);
+	unlink($filename);
+	
+	// Change theme to omega
+							
+	$contents = str_replace($original_text, $replace_text, $contents);
+	
+	$fp = fopen($filename, 'w');
+	fwrite($fp, $contents);
+	fclose($fp);
+}
 
 function drupal_mkdir($uri, $mode = NULL, $recursive = FALSE, $context = NULL) {
   if (!isset($mode)) {
@@ -583,15 +589,19 @@ function buildForm($stage, $result, $stepNext) {
 <body>
 <form id="form-stage" name="form-stage" method="post" action="">
 	<input name="stage" type="hidden" value="<?php print $stage; ?>" />
-    <? if ($stage == 2):?>
+    <? if ($stage == 1):?>
         <label for="opt-install-omega">Installation options:</label><br />
 		<input type="checkbox" name="opt-install-omega" id="opt-install-omega" value="1" checked /> Install Omega & setup subtheme(responsive design)<br />
 	    <label for="opt-install-omega-subtheme-name">Omega subtheme name:</label>
 		<input type="text" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="ifd7demo" /><br /><strong></strong>
 		<input type="checkbox" name="opt-install-user-default" id="opt-install-user-default" value="1" checked /> Default admin configuration (with menu)<br />
+        <input type="checkbox" name="opt-install-webform-form" id="opt-install-webform-form" value="1" checked /> Install & create default contact form<br />
         <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" /> Install & configure commerce & Australia<br />
         <br />
 	<? endif; ?>
+    <? if (!empty($_POST['opt-install-webform-forme'])):?>
+    	 <input type="hidden" name="opt-install-webform-form" id="opt-install-webform-form" value="1" />
+    <? endif; ?>
     <? if (!empty($_POST['opt-install-shop-commerce'])):?>
     	 <input type="hidden" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" />
     <? endif; ?>
