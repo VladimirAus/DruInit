@@ -115,7 +115,7 @@ switch ($stage) {
 
 			// get contents of a file into a string
 			$filename = $dst . '/starterkit_omega_html5.info';
-			rename($filename, str_replace('starterkit', $_POST['opt-install-omega-subtheme-name'], $filename));
+			rename($filename, str_replace('/starterkit_omega_html5', $_POST['opt-install-omega-subtheme-name'], $filename));
 			
 			$theme_origin = 'name = Omega HTML5 Starterkit
 description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
