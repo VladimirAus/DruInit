@@ -228,6 +228,15 @@ function faultstart_install() {
 	  'modified' => 1,
 	  'locked' => 0,
 	),
+	array(
+	  'type' => 'page_block',
+	  'name' => st('Page block'),
+	  'base' => 'node_content',
+	  'description' => st("Use <em>page blocks</em> to create static content for multiple pages, e.g. contact details, social media, etc."),
+	  'custom' => 1,
+	  'modified' => 1,
+	  'locked' => 0,
+	),
 	);
 
 	foreach ($types as $type) {
@@ -266,16 +275,22 @@ function faultstart_install() {
 
 	// Default "Basic page" to not be promoted and have comments disabled.
 	variable_set('node_options_page', array('status'));
+	variable_set('node_options_article', array('status'));
+	variable_set('node_options_page_block', array('status'));
 	//variable_set('comment_page', COMMENT_NODE_HIDDEN);
 
 	// Don't display date and author information for "Basic page" nodes by default.
 	variable_set('node_submitted_page', FALSE);
+	variable_set('node_submitted_article', FALSE);
+	variable_set('node_submitted_page_block', FALSE);
 
 	// Enable user picture support and set the default to a square thumbnail option.
 	variable_set('user_pictures', '1');
 	variable_set('user_picture_dimensions', '1024x1024');
 	variable_set('user_picture_file_size', '800');
 	variable_set('user_picture_style', 'thumbnail');
+	
+	// TODO: find node preview
 
 	// Allow visitor account creation with administrative approval.
 	variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
@@ -481,6 +496,12 @@ function faultstart_install() {
 	node_save($node);
 
 	if ($flag_install_webform_form) {
+		// TODO: modify permissions above
+	
+		// Set webform content type defaults
+		variable_set('node_options_page_block', array('status'));
+		variable_set('node_submitted_page', FALSE);
+		
 		// Create webform
 		$node = new stdClass();
 		$node->type = 'webform';

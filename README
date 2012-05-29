@@ -6,6 +6,18 @@ Drupal installation made easy. Process:
 
 ===============================================
 
+29-May-2012, ver. 0.0.8
+A. Pre installation
+- Options moved to post install step 1 from 2
+- Added webform option to enable webform & install default contact form
+- Create 'page block' content type to display multi page content
+- Disabled 'Promoted' & 'Author & Date' by default for content types
+
+B. Drupal updates
+- Module updates: Entity
+
+===============================================
+
 21-May-2012, ver. 0.0.7
 A. Commerce template started
 B. Drupal updates
@@ -56,7 +68,6 @@ TODO list in installation profile:
 Enable modules: nice menus, CSS injector, meta tags
 
 Hide navigation, login and search in the left column
-Enable omega subtheme
 Remove secondary menu
 Upload iFactory logo and ico
 Create iFactory administator user (administyrator priveledges): ifeditor
@@ -73,6 +84,12 @@ Add logout link
 Setup URL alias patterns
 Create basic CKEditor
 Enable 'View published content' permission for all users
+
+Create install option & view for page_block
+Find node preview & remove it
+
+Create geocoding option. 
+Add geo php library & geotag module
 
 ------------------------------------------
 
