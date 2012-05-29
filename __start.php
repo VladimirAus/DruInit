@@ -115,10 +115,7 @@ switch ($stage) {
 
 			// get contents of a file into a string
 			$filename = $dst . '/starterkit_omega_html5.info';
-			$handle = fopen($filename, "r");
-			$contents = fread($handle, filesize($filename));
-			fclose($handle);
-			unlink($filename);
+			rename($filename, str_replace('starterkit', $_POST['opt-install-omega-subtheme-name'], $filename));
 			
 			$theme_origin = 'name = Omega HTML5 Starterkit
 description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
@@ -139,7 +136,7 @@ engine = phptemplate
 screenshot = screenshot.png
 base theme = omega';
 			
-			$contents = str_replace($theme_origin, $theme_new, $contents);
+			modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '_omega_html5.info');
 			
 			// Debbuging setting
 			$theme_origin = 'settings[alpha_debug_block_toggle] = \'1\'
@@ -150,12 +147,9 @@ settings[alpha_debug_grid_active] = \'1\'';
 settings[alpha_debug_block_active] = \'0\'
 settings[alpha_debug_grid_toggle] = \'0\'
 settings[alpha_debug_grid_active] = \'0\'';
-			$contents = str_replace($theme_origin, $theme_new, $contents);
-						
-			$fp = fopen($dst . '/'.$_POST['opt-install-omega-subtheme-name'].'.info', 'w');
-			fwrite($fp, $contents);
-			fclose($fp);
-			$headerMsg .= "\nSubtheme info file generated\n";
+			
+			modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '_omega_html5.info');
+			$headerMsg .= "Subtheme info file generated\n";
 			
 			// CSS renaming
 			$cssdst = $dst . '/css';
@@ -165,7 +159,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['opt-install-omega-subtheme-name'], "$dst/$file"));
 				}
 			}
-			$headerMsg .= "\nSubtheme CSS files renamed\n";
+			$headerMsg .= "Subtheme CSS files renamed\n";
 		}
 		
 		// Instalation parameters
@@ -229,8 +223,6 @@ settings[alpha_debug_grid_active] = \'0\'';
 			
 			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');
 			$headerMsg .= "Setting default theme in installation profile\n";
-			
-			$headerMsg .= "Default installation profile installed\n";
 			
 			// Modify .info file
 			
@@ -608,7 +600,7 @@ function buildForm($stage, $result, $stepNext) {
     <? if (!empty($_POST['opt-install-user-default'])):?>
     	 <input type="hidden" name="opt-install-user-default" id="opt-install-user-default" value="<?php print $_POST['opt-install-user-default']; ?>" />
     <? endif; ?>
-    <? if (!empty($_POST['opt-install-webform-forme'])):?>
+    <? if (!empty($_POST['opt-install-webform-form'])):?>
     	 <input type="hidden" name="opt-install-webform-form" id="opt-install-webform-form" value="<?php print $_POST['opt-install-webform-form']; ?>" />
     <? endif; ?>
     <? if (!empty($_POST['opt-install-shop-commerce'])):?>
