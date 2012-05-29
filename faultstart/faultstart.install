@@ -499,8 +499,8 @@ function faultstart_install() {
 		// TODO: modify permissions above
 	
 		// Set webform content type defaults
-		variable_set('node_options_page_block', array('status'));
-		variable_set('node_submitted_page', FALSE);
+		variable_set('node_options_webform', array('status'));
+		variable_set('node_submitted_webform', FALSE);
 		
 		// Create webform
 		$node = new stdClass();

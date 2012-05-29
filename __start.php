@@ -230,7 +230,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
-			$headerMsg .= "\nDefault installation profile installed\n";
+			$headerMsg .= "Default installation profile installed\n";
 			
 			// Modify .info file
 			
