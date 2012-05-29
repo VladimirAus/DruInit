@@ -172,7 +172,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 		if (isset($_POST['opt-install-omega'])) {
 			$startFld = $drupalPath . 'profiles/faultstart';
 			//mkdir($startFld, 0755);
-			if (mkdir($startFld, 0755)) {
+			if (drupal_mkdir($startFld, 0755)) {
 			
 				$filesToRead = array(
 					//array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/__start.php', 'file' => '__start.php'),
@@ -363,7 +363,7 @@ function modifyProfileFile($startFld, $replace_text, $original_text = 'files[] =
 
 function drupal_mkdir($uri, $mode = NULL, $recursive = FALSE, $context = NULL) {
   if (!isset($mode)) {
-    $mode = variable_get('file_chmod_directory', 0775);
+    $mode = 0775;
   }
 
   if (!isset($context)) {
@@ -552,10 +552,10 @@ function step2process($drupalPath, $ckzip, $ckzipFile, $extractFolder, $mainSite
 	
 		$directory = $drupalPath . 'sites/all/' . $mainSitesFolder;
 		if (!file_exists($directory)) {
-			mkdir($directory);
+			drupal_mkdir($directory);
 		}
 		if (!file_exists($directory.$extractFolder)) {
-			mkdir($directory.$extractFolder);
+			drupal_mkdir($directory.$extractFolder);
 		}
 		$files = $archiver->listContents();
 		$archiver->extract($directory.$extractFolder);
@@ -599,11 +599,20 @@ function buildForm($stage, $result, $stepNext) {
         <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" /> Install & configure commerce & Australia<br />
         <br />
 	<? endif; ?>
+    <? if (!empty($_POST['opt-install-omega'])):?>
+    	 <input type="hidden" name="opt-install-omega" id="opt-install-omega" value="<?php print $_POST['opt-install-omega']; ?>" />
+    <? endif; ?>
+    <? if (!empty($_POST['opt-install-omega-subtheme-name'])):?>
+    	 <input type="hidden" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="<?php print $_POST['opt-install-omega-subtheme-name']; ?>" />
+    <? endif; ?>
+    <? if (!empty($_POST['opt-install-user-default'])):?>
+    	 <input type="hidden" name="opt-install-user-default" id="opt-install-user-default" value="<?php print $_POST['opt-install-user-default']; ?>" />
+    <? endif; ?>
     <? if (!empty($_POST['opt-install-webform-forme'])):?>
-    	 <input type="hidden" name="opt-install-webform-form" id="opt-install-webform-form" value="1" />
+    	 <input type="hidden" name="opt-install-webform-form" id="opt-install-webform-form" value="<?php print $_POST['opt-install-webform-form']; ?>" />
     <? endif; ?>
     <? if (!empty($_POST['opt-install-shop-commerce'])):?>
-    	 <input type="hidden" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" />
+    	 <input type="hidden" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="<?php print $_POST['opt-install-shop-commerce']; ?>" />
     <? endif; ?>
 	<? if ($stage == 4):?>
 		<input type="submit" name="submit-stage" id="submit-stage" value="Finish" /><br />
