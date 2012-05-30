@@ -154,7 +154,7 @@ switch ($stage) {
 			$files = scandir($cssdst);
 			foreach ($files as $file) {
 				if (strpos($file, 'YOURTHEME') !== false) { 
-					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['opt-install-omega-subtheme-name'], "$dst/$file"));
+					rename("$cssdst/$file", str_replace('YOURTHEME', $_POST['opt-install-omega-subtheme-name'], "$cssdst/$file"));
 				}
 			}
 			$headerMsg .= "Subtheme CSS files renamed\n";
