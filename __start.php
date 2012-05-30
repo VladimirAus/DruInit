@@ -115,41 +115,39 @@ switch ($stage) {
 
 			// get contents of a file into a string
 			$filename = $dst . '/starterkit_omega_html5.info';
-			rename($filename, str_replace('/starterkit_omega_html5', $_POST['opt-install-omega-subtheme-name'], $filename));
+			rename($filename, str_replace('starterkit_omega_html5', $_POST['opt-install-omega-subtheme-name'], $filename));
 			
-			$theme_origin = 'name = Omega HTML5 Starterkit
-description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. Information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
-core = 7.x
-engine = phptemplate
-screenshot = screenshot.png
-base theme = omega
+			$theme_origin = array(
+									'name = Omega HTML5 Starterkit',
+									'description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. More i',
+									'; IMPORTANT: DELETE THESE TWO LINES IN YOUR SUBTHEME',
+									'hidden = TRUE',
+									'starterkit = TRUE',
+									"settings[alpha_debug_block_toggle] = '1'",
+									"settings[alpha_debug_block_active] = '1'",
+									"settings[alpha_debug_grid_toggle] = '1'",
+									"settings[alpha_debug_grid_active] = '1'",
+									);
 
-; IMPORTANT: DELETE THESE TWO LINES IN YOUR SUBTHEME
+			$theme_new = array(
+									'name = iFactory Omega HTML5 Theme',
+									'description = iFactory default theme based on <a href="http://drupal.org/project/omega">Omega</a> HTML5 subtheme. I', 
+									'','','',
+									"settings[alpha_debug_block_toggle] = '0'",
+									"settings[alpha_debug_block_active] = '0'",
+									"settings[alpha_debug_grid_toggle] = '0'",
+									"settings[alpha_debug_grid_active] = '0'",
+								);
 
-hidden = TRUE
-starterkit = TRUE';
-
-			$theme_new = 'name = iFactory Omega HTML5 Theme
-description = iFactory default theme based on <a href="http://drupal.org/project/omega">Omega</a> HTML5 subtheme. More information on this can be found in the <a href="http://himer.us/omega-docs">Omega Documentation</a>
-core = 7.x
-engine = phptemplate
-screenshot = screenshot.png
-base theme = omega';
-			
-			modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '_omega_html5.info');
-			
 			// Debbuging setting
-			$theme_origin = 'settings[alpha_debug_block_toggle] = \'1\'
-settings[alpha_debug_block_active] = \'1\'
-settings[alpha_debug_grid_toggle] = \'1\'
-settings[alpha_debug_grid_active] = \'1\'';
-			$theme_new = 'settings[alpha_debug_block_toggle] = \'0\'
-settings[alpha_debug_block_active] = \'0\'
-settings[alpha_debug_grid_toggle] = \'0\'
-settings[alpha_debug_grid_active] = \'0\'';
-			
-			modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '_omega_html5.info');
+
+			modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '.info');
 			$headerMsg .= "Subtheme info file generated\n";
+						
+
+			
+			//modifyProfileFile($dst, $theme_new, $theme_origin, $_POST['opt-install-omega-subtheme-name'] . '.info');
+
 			
 			// CSS renaming
 			$cssdst = $dst . '/css';
@@ -221,7 +219,7 @@ settings[alpha_debug_grid_active] = \'0\'';
 		variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');
 		';
 			
-			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');
+			$headerMsg .= modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install') . "\n";
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
 			// Modify .info file
@@ -280,7 +278,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/rules-7.x-2.1.zip',
 					// Fields
 					'http://ftp.drupal.org/files/projects/date-7.x-2.5.zip', 
-					'http://ftp.drupal.org/files/projects/addressfield-7.x-1.0-beta2.zip',
+					'http://ftp.drupal.org/files/projects/addressfield-7.x-1.0-beta3.zip',
 					//'http://ftp.drupal.org/files/projects/views_php-7.x-1.x-dev.zip', // Safe to use but try not to use it
 					// Configuration
 					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc3.zip',
@@ -344,13 +342,21 @@ function modifyProfileFile($startFld, $replace_text, $original_text = 'files[] =
 	fclose($handle);
 	unlink($filename);
 	
-	// Change theme to omega
-							
-	$contents = str_replace($original_text, $replace_text, $contents);
+	// If array passed
+	if (is_array($replace_text) && is_array($original_text) && (count($replace_text) == count($original_text))) {
+		foreach ($original_text as $counter => $or_text) {
+			$contents = str_replace($or_text, $replace_text[$counter], $contents);
+		}
+	}
+	else {
+		$contents = str_replace($original_text, $replace_text, $contents);
+	}
 	
 	$fp = fopen($filename, 'w');
 	fwrite($fp, $contents);
 	fclose($fp);
+	
+	return 'Updated file: ' . $filename . "\nFinal content: \n" . $contents;
 }
 
 function drupal_mkdir($uri, $mode = NULL, $recursive = FALSE, $context = NULL) {
