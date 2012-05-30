@@ -298,6 +298,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
 					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
 					'http://ftp.drupal.org/files/projects/nice_menus-7.x-2.1.zip',
+					'http://ftp.drupal.org/files/projects/draggableviews-7.x-2.0.zip',
 					// SEO
 					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
 					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
