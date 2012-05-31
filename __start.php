@@ -289,6 +289,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.4.zip',
 					'http://ftp.drupal.org/files/projects/print-7.x-1.0.zip',
 					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc2.zip',
+					'http://ftp.drupal.org/files/projects/lightbox2-7.x-1.0-beta1.zip',
 					// Permissions
 					'http://ftp.drupal.org/files/projects/override_node_options-7.x-1.12.zip',
 					'http://ftp.drupal.org/files/projects/field_permissions-7.x-1.0-beta2.zip',
@@ -312,6 +313,9 @@ files[] = faultstart.profile';
 		if (!empty($_POST['opt-install-shop-commerce'])) {
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce-7.x-1.3.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_australia-7.x-1.0.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.2.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_eway-7.x-1.0-beta2.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip');
 		}
 
 		foreach ($modules as $module) {
