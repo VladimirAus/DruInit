@@ -236,6 +236,19 @@ files[] = faultstart.profile';
 				$headerMsg .= "Setting default webform modules in info file\n";
 			}
 			
+			// Search
+			if (!empty($_POST['opt-install-basic-search'])) {
+				modifyProfileFile($startFld, '$flag_install_search = true;', '$flag_install_search = false;', 'faultstart.install');
+				$headerMsg .= "Configuring search  in installation profile\n";
+				
+				$replace_text = 'dependencies[] = search
+dependencies[] = custom_search
+
+files[] = faultstart.profile';
+				
+				modifyProfileFile($startFld, $replace_text);
+				$headerMsg .= "Configuring search in info file\n";
+			}
 			// Commerce setting
 			if (!empty($_POST['opt-install-shop-commerce'])) {
 
@@ -248,7 +261,7 @@ dependencies[] = commerce_product_ui
 files[] = faultstart.profile';
 				
 				modifyProfileFile($startFld, $replace_text);
-				$headerMsg .= "Setting default commerce modules in info file\n";
+				$headerMsg .= "Configuring commerce in info file\n";
 			}
 			
 		}
@@ -316,6 +329,10 @@ files[] = faultstart.profile';
 			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_eway-7.x-1.0-beta2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip');
+		}
+		
+		if (!empty($_POST['opt-install-basic-search'])) {
+			array_push($modules, 'http://ftp.drupal.org/files/projects/custom_search-7.x-1.10.zip');
 		}
 
 		foreach ($modules as $module) {
@@ -599,6 +616,7 @@ function buildForm($stage, $result, $stepNext) {
 		<input type="text" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="ifd7demo" /><br /><strong></strong>
 		<input type="checkbox" name="opt-install-user-default" id="opt-install-user-default" value="1" checked /> Default admin configuration (with menu)<br />
         <input type="checkbox" name="opt-install-webform-form" id="opt-install-webform-form" value="1" checked /> Install & create default contact form<br />
+        <input type="checkbox" name="opt-install-basic-search" id="'opt-install-basic-search" value="1" />Install & configure search<br />
         <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" /> Install & configure commerce & Australia<br />
         <br />
 	<? endif; ?>
@@ -613,6 +631,9 @@ function buildForm($stage, $result, $stepNext) {
     <? endif; ?>
     <? if (!empty($_POST['opt-install-webform-form'])):?>
     	 <input type="hidden" name="opt-install-webform-form" id="opt-install-webform-form" value="<?php print $_POST['opt-install-webform-form']; ?>" />
+    <? endif; ?>
+    <? if (!empty($_POST['opt-install-basic-search'])):?>
+    	 <input type="hidden" name="opt-install-basic-search" id="opt-install-basic-search" value="<?php print $_POST['opt-install-basic-search']; ?>" />
     <? endif; ?>
     <? if (!empty($_POST['opt-install-shop-commerce'])):?>
     	 <input type="hidden" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="<?php print $_POST['opt-install-shop-commerce']; ?>" />

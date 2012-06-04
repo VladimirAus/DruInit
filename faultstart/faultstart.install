@@ -15,6 +15,7 @@ function faultstart_install() {
 	
 	// Installer flags
 	$flag_install_webform_form = false;
+	$flag_install_search = false;
 	
 	// Add text formats.
 	$filtered_html_format = array(
@@ -84,16 +85,6 @@ function faultstart_install() {
 	  'status' => 1,
 	  'weight' => 0,
 	  'region' => 'content',
-	  'pages' => '',
-	  'cache' => -1,
-	),
-	array(
-	  'module' => 'search',
-	  'delta' => 'form',
-	  'theme' => $default_theme,
-	  'status' => 1,
-	  'weight' => -1,
-	  'region' => 'page_top',
 	  'pages' => '',
 	  'cache' => -1,
 	),
@@ -200,6 +191,20 @@ function faultstart_install() {
 	),
 	*/
 	);
+	
+	if ($flag_install_search) {
+		$search_block = array(
+					  'module' => 'search',
+					  'delta' => 'form',
+					  'theme' => $default_theme,
+					  'status' => 1,
+					  'weight' => -1,
+					  'region' => ($default_theme == 'omega')?'branding':'page_top',
+					  'pages' => '',
+					  'cache' => -1,
+					);
+	}
+	
 	$query = db_insert('block')->fields(array('module', 'delta', 'theme', 'status', 'weight', 'region', 'pages', 'cache'));
 	foreach ($blocks as $block) {
 		$query->values($block);
@@ -435,7 +440,18 @@ function faultstart_install() {
 	
 	// Grant admin permissions
 	//user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
-	user_role_grant_permissions($admin_role->rid, array('access administration pages', 'access all views', 'access all webform results', 'access backup and migrate', 'access backup files', 'access content', 'access content overview', 'access contextual links', 'access own webform results', 'access own webform submissions', 'access site in maintenance mode', 'access user profiles', 'administer backup and migrate', 'administer css injection', 'administer css3pie', 'administer delta', 'administer image styles', 'administer menu', 'administer meta tags', 'administer pathauto', 'administer software updates', 'administer taxonomy', 'administer url aliases', 'administer views', 'cancel account', 'change own username', 'clone node', 'clone own nodes', 'create article content', 'create page content', 'create url aliases', 'create webform content', 'delete all webform submissions', 'delete any article content', 'delete any page content', 'delete any webform content', 'delete backup files', 'delete own article content', 'delete own page content', 'delete own webform content', 'delete own webform submissions', 'delete terms in 1', 'edit all webform submissions', 'edit any article content', 'edit any page content', 'edit any webform content', 'edit meta tags', 'edit own article content', 'edit own page content', 'edit own webform content', 'edit own webform submissions', 'edit terms in 1', 'enter webform revision log entry', 'notify of path changes', 'override article published option', 'override page published option', 'override webform authored by option', 'override webform authored on option', 'override webform promote to front page option', 'override webform published option', 'override webform revision option', 'override webform sticky option', 'perform backup', 'restore from backup', 'search content', 'select account cancellation method', 'use text format filtered_html', 'view own unpublished content', 'view the administration theme'));
+
+	$permissions = array('access administration pages', 'access all views', 'access backup and migrate', 'access backup files', 'access content', 'access content overview', 'access contextual links', 'access site in maintenance mode', 'access user profiles', 'administer backup and migrate', 'administer css injection', 'administer css3pie', 'administer delta', 'administer image styles', 'administer menu', 'administer meta tags', 'administer pathauto', 'administer software updates', 'administer taxonomy', 'administer url aliases', 'administer views', 'cancel account', 'change own username', 'clone node', 'clone own nodes', 'create article content', 'create page content', 'create url aliases', 'delete any article content', 'delete any page content', 'delete backup files', 'delete own article content', 'delete own page content', 'delete terms in 1', 'edit any article content', 'edit any page content', 'edit meta tags', 'edit own article content', 'edit own page content', 'edit terms in 1', 'notify of path changes', 'override article published option', 'override page published option', 'perform backup', 'restore from backup', 'select account cancellation method', 'use text format filtered_html', 'view own unpublished content', 'view the administration theme');
+
+	if ($flag_install_search) {
+		array_push($permissions, 'search content', 'use custom search');
+	}
+	
+	if ($flag_install_webform_form) {
+		array_push($permissions, 'access all webform results', 'access own webform submissions', 'access own webform results', 'create webform content', 'delete all webform submissions', 'delete any webform content', 'delete own webform content', 'delete own webform submissions', 'edit all webform submissions', 'edit any webform content', 'edit own webform content', 'edit own webform submissions', 'enter webform revision log entry', 'override webform authored by option', 'override webform authored on option', 'override webform promote to front page option', 'override webform published option', 'override webform revision option', 'override webform sticky option');
+	}
+	
+	user_role_grant_permissions($admin_role->rid, $permissions);
 	// Set this as the administrator role.
 	variable_set('user_admin_role', $admin_role->rid);
 
