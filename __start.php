@@ -308,7 +308,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/override_node_options-7.x-1.12.zip',
 					'http://ftp.drupal.org/files/projects/field_permissions-7.x-1.0-beta2.zip',
 					// Development & support
-					'http://ftp.drupal.org/files/projects/devel-7.x-1.2.zip',
+					'http://ftp.drupal.org/files/projects/devel-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/backup_migrate-7.x-2.4.zip',
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
 					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
@@ -320,7 +320,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
 					// Theme support
 					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta3.zip',
-					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta9.zip',
+					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta10.zip',
 					'http://ftp.drupal.org/files/projects/omega_tools-7.x-3.0-rc4.zip',
 					);
 					
