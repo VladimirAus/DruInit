@@ -257,6 +257,7 @@ dependencies[] = commerce_customer_ui
 dependencies[] = commerce_line_item_ui
 dependencies[] = commerce_payment_ui
 dependencies[] = commerce_product_ui
+dependencies[] = commerce_flat_rate
 
 files[] = faultstart.profile';
 				
@@ -279,7 +280,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/libraries-7.x-1.0.zip', 
 					'http://ftp.drupal.org/files/projects/ckeditor-7.x-1.9.zip', 
 					'http://ftp.drupal.org/files/projects/css3pie-7.x-2.1.zip', 
-					'http://ftp.drupal.org/files/projects/fontyourface-7.x-2.2.zip', 
+					'http://ftp.drupal.org/files/projects/fontyourface-7.x-2.3.zip', 
 					// Structure
 					'http://ftp.drupal.org/files/projects/webform-7.x-3.18.zip',  
 					'http://ftp.drupal.org/files/projects/ctools-7.x-1.0.zip',
@@ -308,7 +309,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/field_permissions-7.x-1.0-beta2.zip',
 					// Development & support
 					'http://ftp.drupal.org/files/projects/devel-7.x-1.2.zip',
-					'http://ftp.drupal.org/files/projects/backup_migrate-7.x-2.3.zip',
+					'http://ftp.drupal.org/files/projects/backup_migrate-7.x-2.4.zip',
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
 					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
 					'http://ftp.drupal.org/files/projects/nice_menus-7.x-2.1.zip',
@@ -329,6 +330,8 @@ files[] = faultstart.profile';
 			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_eway-7.x-1.0-beta2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_shipping-7.x-2.0-beta1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_flat_rate-7.x-1.0-beta1.zip');
 		}
 		
 		if (!empty($_POST['opt-install-basic-search'])) {
