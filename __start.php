@@ -332,6 +332,8 @@ files[] = faultstart.profile';
 			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_shipping-7.x-2.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_flat_rate-7.x-1.0-beta1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_vbo_views-7.x-1.1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_bpc-7.x-1.0-rc5.zip');
 		}
 		
 		if (!empty($_POST['opt-install-basic-search'])) {

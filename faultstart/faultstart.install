@@ -523,11 +523,22 @@ function faultstart_install() {
 		$node->type = 'webform';
 		node_object_prepare($node);
 		$node->title = "Webform";
-		$node->body['und']['0']['value'] = 'Insert fields here';
+		$node->body['und']['0']['value'] = '<p>Webform text</p>';
 		$node->components = array();
 		node_save($node);
 		
+		$node->webform = webform_node_defaults();
+		
 		// Add fields
+		// Reference: webform.module:1120, webform.components.inc: 737
+		$extra = array(
+			"title_display" => "before",
+			"private" => 0,
+			"disabled" => 0,
+			"unique" => 0, 
+			"conditional_operator" => "=",
+		);
+
 		$form_fields = array(
 				array('key'=>'name', 'name'=>'Name', 'type'=>'textfield', 'mandatory'=>1),
 				array('key'=>'email', 'name'=>'Email', 'type'=>'email','mandatory'=> 1),
@@ -535,15 +546,29 @@ function faultstart_install() {
 				array('key'=>'message', 'name'=>'Message', 'type'=>'textarea', 'mandatory'=>1),
 			);
 		foreach ($form_fields as $order => $field) {
-			$node->components[$order+1] = faultstart_create_form_component($node->nid, $order+1, $field['key'], $field['name'], $field['type'], $field['mandatory'], $order);
+			//$node->components[$order+1] = faultstart_create_form_component($node->nid, $order+1, $field['key'], $field['name'], $field['type'], $field['mandatory'], $order);
+			$node->webform['components'][] = array(
+				'nid' => $component['nid'],
+				'pid' => 0,
+				'form_key' => $field['key'],
+				'name' => $field['name'],
+				'type' => $field['type'],
+				'value' => '',
+				'extra' => $extra,
+				'mandatory' => $field['mandatory'],
+				'weight' => $order,
+			);
+			
 		}
 		
-		// Add emails
+		// Add emails later using structure and reference above
+		/*
 		$form_emails = array('support@ifactory.com.au');
 		foreach ($form_emails as $order => $email) {
 			$node->emails[$order+1] = faultstart_create_form_email($node->nid, $order+1, $email);
 		}
-		node_save($node);
+		*/
+		webform_node_insert($node);
 	}
 
 	faultstart_install_editor_menu();
