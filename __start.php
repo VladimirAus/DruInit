@@ -75,7 +75,7 @@ switch ($stage) {
 				$fp = fopen($filename, 'w');
 				fwrite($fp, $contents);
 				fclose($fp);
-				$headerMsg .= "\nTake care of .htaccess file\n";
+				$headerMsg .= "\nTaking care of .htaccess file\n";
 			}
 			
 			buildForm($stage, $headerMsg, 'Libraries');
@@ -219,7 +219,8 @@ switch ($stage) {
 		variable_set(\'theme_default\', \''.$_POST['opt-install-omega-subtheme-name'].'\');
 		';
 			
-			$headerMsg .= modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install') . "\n";
+			//$headerMsg .= 
+			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');// . "\n";
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
 			// Modify .info file

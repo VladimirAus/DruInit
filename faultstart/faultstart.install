@@ -16,6 +16,8 @@ function faultstart_install() {
 	// Installer flags
 	$flag_install_webform_form = false;
 	$flag_install_search = false;
+	$flag_install_devel_debug = false;
+	$flag_install_news = false;
 	
 	// Add text formats.
 	$filtered_html_format = array(
@@ -568,7 +570,7 @@ function faultstart_install() {
 			$node->emails[$order+1] = faultstart_create_form_email($node->nid, $order+1, $email);
 		}
 		*/
-		webform_node_insert($node);
+		webform_node_update($node);
 	}
 
 	faultstart_install_editor_menu();
