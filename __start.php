@@ -301,9 +301,9 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-beta1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
-					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.4.zip',
+					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.5.zip',
 					'http://ftp.drupal.org/files/projects/print-7.x-1.0.zip',
-					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc2.zip',
+					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc3.zip',
 					'http://ftp.drupal.org/files/projects/lightbox2-7.x-1.0-beta1.zip',
 					// Permissions
 					'http://ftp.drupal.org/files/projects/override_node_options-7.x-1.12.zip',
