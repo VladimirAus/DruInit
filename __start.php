@@ -187,7 +187,7 @@ switch ($stage) {
 					fclose($fp);
 				}
 			}
-			$headerMsg .= "\nDefault installation profile installed\n";
+			$headerMsg .= "\nDefault installation profile created\n";
 			
 			// Setup default theme
 			
@@ -330,7 +330,7 @@ files[] = faultstart.profile';
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_australia-7.x-1.0.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_eway-7.x-1.0-beta2.zip');
-			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_shipping-7.x-2.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_flat_rate-7.x-1.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_vbo_views-7.x-1.1.zip');
