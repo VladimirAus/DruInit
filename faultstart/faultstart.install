@@ -18,6 +18,7 @@ function faultstart_install() {
 	$flag_install_search = false;
 	$flag_install_devel_debug = false;
 	$flag_install_news = false;
+	$flag_install_commerce_data = false;
 	
 	// Add text formats.
 	$filtered_html_format = array(
@@ -277,7 +278,7 @@ function faultstart_install() {
 	),
 	);
 	foreach ($rdf_mappings as $rdf_mapping) {
-	rdf_mapping_save($rdf_mapping);
+		rdf_mapping_save($rdf_mapping);
 	}
 
 	// Default "Basic page" to not be promoted and have comments disabled.
@@ -306,13 +307,24 @@ function faultstart_install() {
 	$description = st('Use tags to group articles on similar topics into categories.');
 	$help = st('Enter a comma-separated list of words to describe your content.');
 	$vocabulary = (object) array(
-	'name' => st('Tags'),
-	'description' => $description,
-	'machine_name' => 'tags',
-	'help' => $help,
-
+		'name' => st('Tags'),
+		'description' => $description,
+		'machine_name' => 'tags',
+		'help' => $help,
 	);
 	taxonomy_vocabulary_save($vocabulary);
+	
+	if ($flag_install_commerce_data) {
+		$cm_description = st('Categories for product in the shop.');
+		$cm_help = st('Select one or more categories. Select multiple categories by holding ctrl+click');
+		$cm_vocabulary = (object) array(
+			'name' => st('Commerce categories'),
+			'description' => $description,
+			'machine_name' => 'cm_categories',
+			'help' => $help,
+		);
+		taxonomy_vocabulary_save($cm_vocabulary);
+	}
 
 	$field = array(
 	'field_name' => 'field_' . $vocabulary->machine_name,
