@@ -560,7 +560,7 @@ function faultstart_install() {
 		$node->components = array();
 		node_save($node);
 		
-		$node->webform = webform_node_defaults();
+		//$node->webform = webform_node_defaults();
 		
 		// Add fields
 		// Reference: webform.module:1120, webform.components.inc: 737
