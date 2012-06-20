@@ -315,15 +315,33 @@ function faultstart_install() {
 	taxonomy_vocabulary_save($vocabulary);
 	
 	if ($flag_install_commerce_data) {
-		$cm_description = st('Categories for product in the shop.');
-		$cm_help = st('Select one or more categories. Select multiple categories by holding ctrl+click');
+		$cm_description = t('Categories for product in the shop.');
+		$cm_help = t('Select one or more categories. Select multiple categories by holding ctrl+click');
 		$cm_vocabulary = (object) array(
-			'name' => st('Commerce categories'),
-			'description' => $description,
+			'name' => t('Commerce categories'),
+			'description' => $cm_description,
 			'machine_name' => 'cm_categories',
-			'help' => $help,
+			'help' => $cm_help,
 		);
 		taxonomy_vocabulary_save($cm_vocabulary);
+		
+		$cm_terms = array(
+			array('name' => 'Category A', 'desc' => 'Test category 1 for default shop', ),
+			array('name' => 'Category B', 'desc' => 'Test category 2 for default shop', ),
+			array('name' => 'Category C', 'desc' => 'Test category 3 for default shop', ),
+		);
+		
+		foreach ($cm_terms as $order => $cm_term) {
+			$term = new stdClass;
+			$term->vid = $cm_vocabulary->vid;
+			$term->vocabulary_machine_name = $cm_vocabulary->machine_name;
+			$term->name = t($cm_term['name']);
+			$term->description = t($cm_term['desc']);
+			$term->format = filter_fallback_format();
+			$term->weight = $order;
+			$term->language = LANGUAGE_NONE;
+	
+			taxonomy_term_save($term);
 	}
 
 	$field = array(
@@ -562,7 +580,7 @@ function faultstart_install() {
 		foreach ($form_fields as $order => $field) {
 			//$node->components[$order+1] = faultstart_create_form_component($node->nid, $order+1, $field['key'], $field['name'], $field['type'], $field['mandatory'], $order);
 			$node->webform['components'][] = array(
-				'nid' => $component['nid'],
+				'nid' => $node->nid,
 				'pid' => 0,
 				'form_key' => $field['key'],
 				'name' => $field['name'],
