@@ -626,7 +626,7 @@ function buildForm($stage, $result, $stepNext) {
 		<input type="checkbox" name="opt-install-user-default" id="opt-install-user-default" value="1" checked /> Default admin configuration (with menu)<br />
         <input type="checkbox" name="opt-install-webform-form" id="opt-install-webform-form" value="1" checked /> Install & create default contact form<br />
         <input type="checkbox" name="opt-install-basic-search" id="'opt-install-basic-search" value="1" />Install & configure search<br />
-        <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" />Add commerce data: Australia (GST, AUD), Sample taxonomy categories<br />
+        <input type="checkbox" name="opt-install-shop-commerce" id="opt-install-shop-commerce" value="1" />Install & configure commerce + Australia (GST, AUD), Sample taxonomy categories<br />
         <br />
 	<? endif; ?>
     <? if (!empty($_POST['opt-install-omega'])):?>

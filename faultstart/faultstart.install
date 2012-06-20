@@ -315,8 +315,8 @@ function faultstart_install() {
 	taxonomy_vocabulary_save($vocabulary);
 	
 	if ($flag_install_commerce_data) {
-		$cm_description = t('Categories for product in the shop.');
-		$cm_help = t('Select one or more categories. Select multiple categories by holding ctrl+click');
+		$cm_description = st('Categories for product in the shop.');
+		$cm_help = st('Select one or more categories. Select multiple categories by holding ctrl+click');
 		$cm_vocabulary = (object) array(
 			'name' => t('Commerce categories'),
 			'description' => $cm_description,
@@ -335,13 +335,14 @@ function faultstart_install() {
 			$term = new stdClass;
 			$term->vid = $cm_vocabulary->vid;
 			$term->vocabulary_machine_name = $cm_vocabulary->machine_name;
-			$term->name = t($cm_term['name']);
-			$term->description = t($cm_term['desc']);
+			$term->name = $cm_term['name'];
+			$term->description = $cm_term['desc'];
 			$term->format = filter_fallback_format();
 			$term->weight = $order;
 			$term->language = LANGUAGE_NONE;
 	
 			taxonomy_term_save($term);
+		}
 	}
 
 	$field = array(
