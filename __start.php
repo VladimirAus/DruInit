@@ -117,6 +117,7 @@ switch ($stage) {
 			$filename = $dst . '/starterkit_omega_html5.info';
 			rename($filename, str_replace('starterkit_omega_html5', $_POST['opt-install-omega-subtheme-name'], $filename));
 			
+			// TODO: add content to default blog in Omega
 			$theme_origin = array(
 									'name = Omega HTML5 Starterkit',
 									'description = Default starterkit for <a href="http://drupal.org/project/omega">Omega</a>. You should not directly edit this starterkit, but make your own copy. More i',
@@ -130,8 +131,8 @@ switch ($stage) {
 									);
 
 			$theme_new = array(
-									'name = iFactory Omega HTML5 Theme',
-									'description = iFactory default theme based on <a href="http://drupal.org/project/omega">Omega</a> HTML5 subtheme. I', 
+									'name = Omega HTML5 Theme',
+									'description = Default theme based on <a href="http://drupal.org/project/omega">Omega</a> HTML5 subtheme. I', 
 									'','','',
 									"settings[alpha_debug_block_toggle] = '0'",
 									"settings[alpha_debug_block_active] = '0'",
@@ -293,6 +294,8 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/entity-7.x-1.0-rc3.zip', 
 					'http://ftp.drupal.org/files/projects/entityreference-7.x-1.0-rc1.zip', 
 					'http://ftp.drupal.org/files/projects/rules-7.x-2.1.zip',
+					'http://ftp.drupal.org/files/projects/imce-7.x-1.5.zip', 
+					'http://ftp.drupal.org/files/projects/imce_mkdir-7.x-1.0.zip',
 					// Fields
 					'http://ftp.drupal.org/files/projects/date-7.x-2.5.zip', 
 					'http://ftp.drupal.org/files/projects/addressfield-7.x-1.0-beta3.zip',
@@ -314,7 +317,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/devel-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/backup_migrate-7.x-2.4.zip',
 					'http://ftp.drupal.org/files/projects/css_injector-7.x-1.7.zip',
-					'http://ftp.drupal.org/files/projects/js_injector-7.x-1.x-dev.zip',
+					'http://ftp.drupal.org/files/projects/js_injector-7.x-2.x-dev.zip',
 					'http://ftp.drupal.org/files/projects/nice_menus-7.x-2.1.zip',
 					'http://ftp.drupal.org/files/projects/draggableviews-7.x-2.0.zip',
 					// SEO
