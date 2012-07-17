@@ -625,7 +625,7 @@ function buildForm($stage, $result, $stepNext) {
         <label for="opt-install-omega">Installation options:</label><br />
 		<input type="checkbox" name="opt-install-omega" id="opt-install-omega" value="1" checked /> Install Omega & setup subtheme(responsive design)<br />
 	    <label for="opt-install-omega-subtheme-name">Omega subtheme name:</label>
-		<input type="text" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="ifd7demo" /><br /><strong></strong>
+		<input type="text" name="opt-install-omega-subtheme-name" id="opt-install-omega-subtheme-name" value="tesd7demo" /><br /><strong></strong>
 		<input type="checkbox" name="opt-install-user-default" id="opt-install-user-default" value="1" checked /> Default admin configuration (with menu)<br />
         <input type="checkbox" name="opt-install-webform-form" id="opt-install-webform-form" value="1" checked /> Install & create default contact form<br />
         <input type="checkbox" name="opt-install-basic-search" id="'opt-install-basic-search" value="1" />Install & configure search<br />

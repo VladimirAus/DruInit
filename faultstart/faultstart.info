@@ -1,4 +1,4 @@
-name = iFactory installation profile
+name = TES modified installation profile
 description = Run to configure other profiles
 core = 7.x
 dependencies[] = block
