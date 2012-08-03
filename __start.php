@@ -24,7 +24,7 @@ require_once '__start/system.tar.inc';
 
 $stage = getStage(); // Stage of the process
 
-$drupal_version = '7.14';
+$drupal_version = '7.15';
 
 $drupalPath = 'drupal-'.$drupal_version.'/';
 $headerMsg = '';
@@ -308,7 +308,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.5.zip',
 					'http://ftp.drupal.org/files/projects/print-7.x-1.0.zip',
-					'http://ftp.drupal.org/files/projects/features-7.x-1.0-rc3.zip',
+					'http://ftp.drupal.org/files/projects/features-7.x-1.0.zip',
 					'http://ftp.drupal.org/files/projects/lightbox2-7.x-1.0-beta1.zip',
 					// Permissions
 					'http://ftp.drupal.org/files/projects/override_node_options-7.x-1.12.zip',
@@ -324,19 +324,20 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
 					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
 					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
+					'http://ftp.drupal.org/files/projects/sharethis-7.x-2.4.zip',
 					// Theme support
 					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta3.zip',
-					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta10.zip',
+					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta11.zip',
 					'http://ftp.drupal.org/files/projects/omega_tools-7.x-3.0-rc4.zip',
 					);
 					
 		if (!empty($_POST['opt-install-shop-commerce'])) {
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce-7.x-1.3.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_australia-7.x-1.0.zip');
-			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.2.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/taxonomy_menu-7.x-1.3.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_eway-7.x-1.0-beta2.zip');
 			//array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta2.zip');
-			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta1.zip'); // Beta 2 is very unstable
+			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta3.zip'); // Beta 2 is very unstable
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_shipping-7.x-2.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_flat_rate-7.x-1.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_vbo_views-7.x-1.1.zip');
@@ -546,15 +547,15 @@ function step1processDrupal() {
 // CK Editor download
 //////////////////////
 
-function step2processLibraries($drupalPath = 'drupal-7.14/',
-						$ckzip = 'http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.2/ckeditor_3.6.2.zip', 
-						$ckzipFile = 'ckeditor_3.6.2.zip', $extractFolder = '') {
+function step2processLibraries($drupalPath = 'drupal-7.15/',
+						$ckzip = 'http://download.cksource.com/CKEditor/CKEditor/CKEditor%203.6.4/ckeditor_3.6.4.zip', 
+						$ckzipFile = 'ckeditor_3.6.4.zip', $extractFolder = '') {
 							
 		return step2process($drupalPath, $ckzip, $ckzipFile, $extractFolder, 'libraries/');
 	
 }
 
-function step2processModules($drupalPath = 'drupal-7.14/',
+function step2processModules($drupalPath = 'drupal-7.15/',
 						$ckzip = 'http://ftp.drupal.org/files/projects/ckeditor-7.x-1.8.zip', 
 						$ckzipFile = 'ckeditor-7.x-1.8.zip', $extractFolder = '') {
 							
@@ -562,7 +563,7 @@ function step2processModules($drupalPath = 'drupal-7.14/',
 	
 }
 
-function step2processThemes($drupalPath = 'drupal-7.14/',
+function step2processThemes($drupalPath = 'drupal-7.15/',
 						$ckzip = 'http://ftp.drupal.org/files/projects/omega-7.x-3.1.zip', 
 						$ckzipFile = 'omega-7.x-3.1.zip', $extractFolder = '') {
 							
