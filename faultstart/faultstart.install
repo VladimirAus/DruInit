@@ -228,10 +228,10 @@ function faultstart_install() {
 	  'locked' => 0,
 	),
 	array(
-	  'type' => 'article',
-	  'name' => st('Article'),
+	  'type' => 'newsitem',
+	  'name' => st('News item'),
 	  'base' => 'node_content',
-	  'description' => st('Use <em>articles</em> for time-sensitive content like news, press releases or blog posts.'),
+	  'description' => st('Use <em>news items</em> for time-sensitive content like news, press releases or blog posts.'),
 	  'custom' => 1,
 	  'modified' => 1,
 	  'locked' => 0,
@@ -264,7 +264,7 @@ function faultstart_install() {
 	),
 	array(
 	  'type' => 'node',
-	  'bundle' => 'article',
+	  'bundle' => 'newsitem',
 	  'mapping' => array(
 		'field_image' => array(
 		  'predicates' => array('og:image', 'rdfs:seeAlso'),
@@ -283,13 +283,13 @@ function faultstart_install() {
 
 	// Default "Basic page" to not be promoted and have comments disabled.
 	variable_set('node_options_page', array('status'));
-	variable_set('node_options_article', array('status'));
+	variable_set('node_options_newsitem', array('status'));
 	variable_set('node_options_page_block', array('status'));
 	//variable_set('comment_page', COMMENT_NODE_HIDDEN);
 
 	// Don't display date and author information for "Basic page" nodes by default.
 	variable_set('node_submitted_page', FALSE);
-	variable_set('node_submitted_article', FALSE);
+	variable_set('node_submitted_newsitem', FALSE);
 	variable_set('node_submitted_page_block', FALSE);
 
 	// Enable user picture support and set the default to a square thumbnail option.
@@ -307,8 +307,8 @@ function faultstart_install() {
 	//variable_set('user_register', USER_REGISTER_VISITORS_ADMINISTRATIVE_APPROVAL);
 	variable_set('user_register', USER_REGISTER_ADMINISTRATORS_ONLY);
 
-	// Create a default vocabulary named "Tags", enabled for the 'article' content type.
-	$description = st('Use tags to group articles on similar topics into categories.');
+	// Create a default vocabulary named "Tags", enabled for the 'newsitem' content type.
+	$description = st('Use tags to group items on similar topics into categories.');
 	$help = st('Enter a comma-separated list of words to describe your content.');
 	$vocabulary = (object) array(
 		'name' => st('Tags'),
@@ -369,7 +369,7 @@ function faultstart_install() {
 	'field_name' => 'field_' . $vocabulary->machine_name,
 	'entity_type' => 'node',
 	'label' => 'Tags',
-	'bundle' => 'article',
+	'bundle' => 'newsitem',
 	'description' => $vocabulary->help,
 	'widget' => array(
 	  'type' => 'taxonomy_autocomplete',
@@ -389,7 +389,7 @@ function faultstart_install() {
 	field_create_instance($instance);
 
 
-	// Create an image field named "Image", enabled for the 'article' content type.
+	// Create an image field named "Image", enabled for the 'newsitem' content type.
 	// Many of the following values will be defaulted, they're included here as an illustrative examples.
 	// See http://api.drupal.org/api/function/field_create_field/7
 
@@ -417,8 +417,8 @@ function faultstart_install() {
 	'field_name' => 'field_image',
 	'entity_type' => 'node',
 	'label' => 'Image',
-	'bundle' => 'article',
-	'description' => st('Upload an image to go with this article.'),
+	'bundle' => 'newsitem',
+	'description' => st('Upload an image to go with this news item.'),
 	'required' => FALSE,
 
 	'settings' => array(
@@ -475,7 +475,7 @@ function faultstart_install() {
 	// Grant admin permissions
 	//user_role_grant_permissions($admin_role->rid, array_keys(module_invoke_all('permission')));
 
-	$permissions = array('access administration pages', 'access all views', 'access backup and migrate', 'access backup files', 'access content', 'access content overview', 'access contextual links', 'access site in maintenance mode', 'access user profiles', 'administer backup and migrate', 'administer css injection', 'administer css3pie', 'administer delta', 'administer image styles', 'administer menu', 'administer meta tags', 'administer pathauto', 'administer software updates', 'administer taxonomy', 'administer url aliases', 'administer views', 'cancel account', 'change own username', 'clone node', 'clone own nodes', 'create article content', 'create page content', 'create url aliases', 'delete any article content', 'delete any page content', 'delete backup files', 'delete own article content', 'delete own page content', 'delete terms in 1', 'edit any article content', 'edit any page content', 'edit meta tags', 'edit own article content', 'edit own page content', 'edit terms in 1', 'notify of path changes', 'override article published option', 'override page published option', 'perform backup', 'restore from backup', 'select account cancellation method', 'use text format filtered_html', 'view own unpublished content', 'view the administration theme');
+	$permissions = array('access administration pages', 'access all views', 'access backup and migrate', 'access backup files', 'access content', 'access content overview', 'access contextual links', 'access site in maintenance mode', 'access user profiles', 'administer backup and migrate', 'administer css injection', 'administer css3pie', 'administer delta', 'administer image styles', 'administer menu', 'administer meta tags', 'administer pathauto', 'administer software updates', 'administer taxonomy', 'administer url aliases', 'administer views', 'cancel account', 'change own username', 'clone node', 'clone own nodes', 'create newsitem content', 'create page content', 'create url aliases', 'delete any newsitem content', 'delete any page content', 'delete backup files', 'delete own newsitem content', 'delete own page content', 'delete terms in 1', 'edit any newsitem content', 'edit any page content', 'edit meta tags', 'edit own newsitem content', 'edit own page content', 'edit terms in 1', 'notify of path changes', 'override newsitem published option', 'override page published option', 'perform backup', 'restore from backup', 'select account cancellation method', 'use text format filtered_html', 'view own unpublished content', 'view the administration theme');
 
 	if ($flag_install_search) {
 		array_push($permissions, 'search content', 'use custom search');

@@ -162,16 +162,17 @@ switch ($stage) {
 		}
 		
 		// Instalation parameters
-		if (isset($_POST['opt-install-omega'])) {
-			$startFld = $drupalPath . 'profiles/faultstart';
+		if (isset($_POST['opt-install-omega']) && isset($_POST['opt-install-omega-subtheme-name'])) {
+			$profileName = $_POST['opt-install-omega-subtheme-name'].'prof';
+			$startFld = $drupalPath . 'profiles/'.$profileName;
 			//mkdir($startFld, 0755);
 			if (drupal_mkdir($startFld, 0755)) {
 			
 				$filesToRead = array(
 					//array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/__start.php', 'file' => '__start.php'),
-					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.install', 'file' => $startFld . '/faultstart.install'),
-					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.info', 'file' => $startFld . '/faultstart.info'),
-					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.profile', 'file' => $startFld . '/faultstart.profile'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.install', 'file' => $startFld . '/'.$profileName.'.install'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.info', 'file' => $startFld . '/'.$profileName.'.info'),
+					array('url' => 'https://raw.github.com/VladimirAus/DruInit/master/faultstart/faultstart.profile', 'file' => $startFld . '/'.$profileName.'.profile'),
 				);
 				
 				foreach ($filesToRead as $fileToCopy) {
@@ -188,7 +189,12 @@ switch ($stage) {
 					fclose($fp);
 				}
 			}
-			$headerMsg .= "\nDefault installation profile created\n";
+			$headerMsg .= "\nDefault installation profile created: ".$profileName."\n";
+			
+			// Change faultstart to new name
+			modifyProfileFile($startFld, $profileName, 'faultstart', $profileName.'.install');
+			modifyProfileFile($startFld, $profileName, 'faultstart', $profileName.'.info');
+			modifyProfileFile($startFld, $profileName, 'faultstart', $profileName.'.profile');
 			
 			// Setup default theme
 			
@@ -221,18 +227,18 @@ switch ($stage) {
 		';
 			
 			//$headerMsg .= 
-			modifyProfileFile($startFld, $replace_text, $original_text, 'faultstart.install');// . "\n";
+			modifyProfileFile($startFld, $replace_text, $original_text, $profileName.'.install');// . "\n";
 			$headerMsg .= "Setting default theme in installation profile\n";
 			
 			// Modify .info file
 			
 			// Webform
 			if (!empty($_POST['opt-install-webform-form'])) {
-				modifyProfileFile($startFld, '$flag_install_webform_form = true;', '$flag_install_webform_form = false;', 'faultstart.install');
+				modifyProfileFile($startFld, '$flag_install_webform_form = true;', '$flag_install_webform_form = false;', $profileName.'.install');
 				
 				$replace_text = 'dependencies[] = webform
 
-files[] = faultstart.profile';
+files[] = '.$profileName.'.profile';
 				
 				modifyProfileFile($startFld, $replace_text);
 				$headerMsg .= "Setting default webform modules in info file\n";
@@ -240,13 +246,13 @@ files[] = faultstart.profile';
 			
 			// Search
 			if (!empty($_POST['opt-install-basic-search'])) {
-				modifyProfileFile($startFld, '$flag_install_search = true;', '$flag_install_search = false;', 'faultstart.install');
+				modifyProfileFile($startFld, '$flag_install_search = true;', '$flag_install_search = false;', $profileName.'.install');
 				$headerMsg .= "Configuring search  in installation profile\n";
 				
 				$replace_text = 'dependencies[] = search
 dependencies[] = custom_search
 
-files[] = faultstart.profile';
+files[] = '.$profileName.'.profile';
 				
 				modifyProfileFile($startFld, $replace_text);
 				$headerMsg .= "Configuring search in info file\n";
@@ -263,7 +269,7 @@ dependencies[] = commerce_payment_ui
 dependencies[] = commerce_product_ui
 dependencies[] = commerce_flat_rate
 
-files[] = faultstart.profile';
+files[] = '.$profileName.'.profile';
 				
 				modifyProfileFile($startFld, $replace_text);
 				$headerMsg .= "Configuring commerce in info file\n";
@@ -287,7 +293,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/fontyourface-7.x-2.3.zip', 
 					// Structure
 					'http://ftp.drupal.org/files/projects/webform-7.x-3.18.zip',  
-					'http://ftp.drupal.org/files/projects/ctools-7.x-1.0.zip',
+					'http://ftp.drupal.org/files/projects/ctools-7.x-1.1.zip',
 					'http://ftp.drupal.org/files/projects/views-7.x-3.3.zip', 
 					'http://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.0-rc1.zip', 
 					'http://ftp.drupal.org/files/projects/views_slideshow-7.x-3.0.zip',
@@ -303,8 +309,8 @@ files[] = faultstart.profile';
 					// Configuration
 					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc3.zip',
 					'http://ftp.drupal.org/files/projects/token-7.x-1.1.zip',
-					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.1.zip',
-					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-beta1.zip',
+					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.2.zip',
+					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-rc1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
 					'http://ftp.drupal.org/files/projects/globalredirect-7.x-1.5.zip',
 					'http://ftp.drupal.org/files/projects/print-7.x-1.0.zip',
@@ -322,7 +328,7 @@ files[] = faultstart.profile';
 					'http://ftp.drupal.org/files/projects/draggableviews-7.x-2.0.zip',
 					// SEO
 					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
-					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha6.zip',
+					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha7.zip',
 					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
 					'http://ftp.drupal.org/files/projects/sharethis-7.x-2.4.zip',
 					// Theme support
@@ -340,7 +346,7 @@ files[] = faultstart.profile';
 			array_push($modules, 'http://ftp.drupal.org/files/projects/inline_entity_form-7.x-1.0-beta3.zip'); // Beta 2 is very unstable
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_shipping-7.x-2.0-beta1.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_flat_rate-7.x-1.0-beta1.zip');
-			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_vbo_views-7.x-1.1.zip');
+			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_vbo_views-7.x-1.2.zip');
 			array_push($modules, 'http://ftp.drupal.org/files/projects/commerce_bpc-7.x-1.0-rc5.zip');
 		}
 		
@@ -559,7 +565,7 @@ function step2processModules($drupalPath = 'drupal-7.15/',
 						$ckzip = 'http://ftp.drupal.org/files/projects/ckeditor-7.x-1.8.zip', 
 						$ckzipFile = 'ckeditor-7.x-1.8.zip', $extractFolder = '') {
 							
-		return step2process($drupalPath, $ckzip, $ckzipFile, $extractFolder, 'modules/');
+		return step2process($drupalPath, $ckzip, $ckzipFile, $extractFolder, 'modules/core/');
 	
 }
 
