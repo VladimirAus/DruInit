@@ -5,6 +5,16 @@ Drupal installation made easy. Process:
 4. Setup installation profiles (Manual)
 
 ===============================================
+CHANGE LOG
+===============================================
+
+11-Aug-2012, ver. 0.1.0
+Security updates.
+Articles renamed to news items. 
+Profile now has custom name.
+Modules now has subfolder core as opposed to custom for future SymLinks integrtion. (coming soon)
+
+===============================================
 
 29-May-2012, ver. 0.0.8
 A. Pre installation
