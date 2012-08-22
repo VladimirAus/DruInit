@@ -9,10 +9,10 @@ CHANGE LOG
 ===============================================
 
 11-Aug-2012, ver. 0.1.0
-Security updates.
-Articles renamed to news items. 
-Profile now has custom name.
-Modules now has subfolder core as opposed to custom for future SymLinks integrtion. (coming soon)
+- Security updates.
+- Articles renamed to news items. 
+- Profile now has custom name.
+- Modules now has subfolder core as opposed to custom for future SymLinks integrtion. (coming soon)
 
 ===============================================
 
@@ -75,8 +75,6 @@ C. Update to static instalation profile
  
 TODO list in installation profile:
 
-Enable modules: nice menus, CSS injector, meta tags
-
 Hide navigation, login and search in the left column
 Remove secondary menu
 Upload iFactory logo and ico
@@ -85,7 +83,7 @@ Create iFactory administator user (administyrator priveledges): ifeditor
 Create manage view
 Create administrator menu
 
-Create menus: iF Editor Menu & iF Client Menu
+Create menus: Editor Menu & Client Menu
 Add account to menu
 Add menus to Nice menus, set blocks to be displayed to different roles
 Add stick to top stile, brand with iFactory

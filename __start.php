@@ -293,8 +293,8 @@ files[] = '.$profileName.'.profile';
 					'http://ftp.drupal.org/files/projects/fontyourface-7.x-2.3.zip', 
 					// Structure
 					'http://ftp.drupal.org/files/projects/webform-7.x-3.18.zip',  
-					'http://ftp.drupal.org/files/projects/ctools-7.x-1.1.zip',
-					'http://ftp.drupal.org/files/projects/views-7.x-3.3.zip', 
+					'http://ftp.drupal.org/files/projects/ctools-7.x-1.2.zip',
+					'http://ftp.drupal.org/files/projects/views-7.x-3.4.zip', 
 					'http://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.0-rc1.zip', 
 					'http://ftp.drupal.org/files/projects/views_slideshow-7.x-3.0.zip',
 					'http://ftp.drupal.org/files/projects/entity-7.x-1.0-rc3.zip', 
@@ -308,7 +308,7 @@ files[] = '.$profileName.'.profile';
 					//'http://ftp.drupal.org/files/projects/views_php-7.x-1.x-dev.zip', // Safe to use but try not to use it
 					// Configuration
 					'http://ftp.drupal.org/files/projects/admin_menu-7.x-3.0-rc3.zip',
-					'http://ftp.drupal.org/files/projects/token-7.x-1.1.zip',
+					'http://ftp.drupal.org/files/projects/token-7.x-1.2.zip',
 					'http://ftp.drupal.org/files/projects/pathauto-7.x-1.2.zip',
 					'http://ftp.drupal.org/files/projects/node_clone-7.x-1.0-rc1.zip',
 					'http://ftp.drupal.org/files/projects/logintoboggan-7.x-1.3.zip',
@@ -328,11 +328,11 @@ files[] = '.$profileName.'.profile';
 					'http://ftp.drupal.org/files/projects/draggableviews-7.x-2.0.zip',
 					// SEO
 					'http://ftp.drupal.org/files/projects/google_analytics-7.x-1.2.zip',
-					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha7.zip',
+					'http://ftp.drupal.org/files/projects/metatag-7.x-1.0-alpha8.zip',
 					'http://ftp.drupal.org/files/projects/xmlsitemap-7.x-2.0-rc1.zip',
 					'http://ftp.drupal.org/files/projects/sharethis-7.x-2.4.zip',
 					// Theme support
-					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta3.zip',
+					'http://ftp.drupal.org/files/projects/context-7.x-3.0-beta4.zip',
 					'http://ftp.drupal.org/files/projects/delta-7.x-3.0-beta11.zip',
 					'http://ftp.drupal.org/files/projects/omega_tools-7.x-3.0-rc4.zip',
 					);
